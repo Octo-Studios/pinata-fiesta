@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "it.hurts.shatterbyte.pinatafiesta.PinataFiesta"
+        ],
+        "client": [
+            "it.hurts.shatterbyte.pinatafiesta.fabric.PinataFiestaClient"
         ]
     },
     "mixins": [

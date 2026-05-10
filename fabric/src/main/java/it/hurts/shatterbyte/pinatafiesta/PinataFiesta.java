@@ -1,18 +1,17 @@
 package it.hurts.shatterbyte.pinatafiesta;
 
+import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
+import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import it.hurts.shatterbyte.pinatafiesta.fabric.FabricRegistrar;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 
 public class PinataFiesta implements ModInitializer {
     
     @Override
     public void onInitialize() {
-        
-        // This method is invoked by the Fabric mod loader when it is ready
-        // to load your mod. You can access Fabric and Common code in this
-        // project.
-
-        // Use Fabric to bootstrap the Common mod.
-        Constants.LOG.info("Hello Fabric world!");
+        ModContent.register(new FabricRegistrar());
+        FabricDefaultAttributeRegistry.register(ModContent.pinataEntity(), PinataEntity.createAttributes());
         CommonClass.init();
     }
 }
