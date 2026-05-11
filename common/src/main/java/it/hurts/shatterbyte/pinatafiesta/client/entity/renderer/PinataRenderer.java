@@ -25,18 +25,12 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 	public void submit(PinataRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		poseStack.pushPose();
 
-//		float hitProgress = Math.max(0.0F, 10.0F - state.ticksSinceKineticHitFeedback) / 10.0F;
-//		if (hitProgress > 0.0F) {
-//			float wobble = Mth.sin(hitProgress * Mth.PI * 4.0F) * hitProgress;
-//			poseStack.translate(wobble * 0.08F, 0.0F, 0.0F);
-//			poseStack.mulPose(Axis.ZP.rotationDegrees(wobble * 8.0F));
-//		}
 		poseStack.translate(0, state.boundingBoxHeight/2f, 0);
-		poseStack.mulPose(Axis.YP.rotation(state.bodyRot));
+		poseStack.mulPose(Axis.YP.rotationDegrees(180f-state.bodyRot));
 		poseStack.mulPose(Axis.ZP.rotation(Mth.cos(state.ageInTicks/24f)*0.075f));
 		poseStack.mulPose(Axis.XP.rotation(Mth.cos(state.ageInTicks/24f)*0.05f));
-		poseStack.mulPose(Axis.YP.rotation(-state.bodyRot));
-		//poseStack.mulPose(Axis.XP.rotation(Mth.cos(state.ageInTicks/24f+20)*0.05f));
+		poseStack.mulPose(Axis.YP.rotationDegrees(-180f+state.bodyRot));
+
 		poseStack.translate(0, -state.boundingBoxHeight/2f, 0);
 
 		poseStack.translate(0f, 0.25f + Mth.sin(state.ageInTicks/24f)*0.15f, 0f);
