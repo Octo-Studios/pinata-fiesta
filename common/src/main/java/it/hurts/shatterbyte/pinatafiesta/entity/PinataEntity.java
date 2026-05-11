@@ -1,5 +1,8 @@
 package it.hurts.shatterbyte.pinatafiesta.entity;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -9,7 +12,6 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -18,6 +20,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 public class PinataEntity extends LivingEntity {
     private static final int HITS_TO_BREAK = 6;
+    private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
+
     private int hits;
 
     public PinataEntity(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -31,12 +35,19 @@ public class PinataEntity extends LivingEntity {
     }
 
     @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_HIT_COUNTER, 0);
+    }
+
+    @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         if (isInvulnerableTo(level, source)) {
             return false;
         }
 
         hits++;
+        getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         markHurt();
 
         if (hits >= HITS_TO_BREAK) {
@@ -46,6 +57,10 @@ public class PinataEntity extends LivingEntity {
 
         level.playSound(null, getX(), getY(), getZ(), SoundEvents.WOOL_HIT, SoundSource.NEUTRAL, 0.9F, 0.8F + random.nextFloat() * 0.35F);
         return true;
+    }
+
+    public int getHitCounter() {
+        return getEntityData().get(DATA_HIT_COUNTER);
     }
 
     @Override
