@@ -17,10 +17,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 
 public class PinataEntity extends LivingEntity {
-    private static final int HITS_TO_BREAK = 6;
+    private static final int HITS_TO_BREAK = 100;
     private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> DATA_HIT_DIR_Z = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
 
     private int hits;
 
@@ -38,6 +41,8 @@ public class PinataEntity extends LivingEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_HIT_COUNTER, 0);
+        builder.define(DATA_HIT_DIR_X, 0.0F);
+        builder.define(DATA_HIT_DIR_Z, 0.0F);
     }
 
     @Override
@@ -47,6 +52,7 @@ public class PinataEntity extends LivingEntity {
         }
 
         hits++;
+        cacheHitDirection(source);
         getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         markHurt();
 
@@ -61,6 +67,14 @@ public class PinataEntity extends LivingEntity {
 
     public int getHitCounter() {
         return getEntityData().get(DATA_HIT_COUNTER);
+    }
+
+    public float getHitDirX() {
+        return getEntityData().get(DATA_HIT_DIR_X);
+    }
+
+    public float getHitDirZ() {
+        return getEntityData().get(DATA_HIT_DIR_Z);
     }
 
     @Override
@@ -97,6 +111,29 @@ public class PinataEntity extends LivingEntity {
         }
 
         discard();
+    }
+
+    private void cacheHitDirection(DamageSource source) {
+        Vec3 sourcePos = source.getSourcePosition();
+
+        if (sourcePos == null && source.getEntity() != null) {
+            sourcePos = source.getEntity().position();
+        }
+
+        if (sourcePos == null) {
+            return;
+        }
+
+        double x = getX() - sourcePos.x;
+        double z = getZ() - sourcePos.z;
+        double length = Math.sqrt(x * x + z * z);
+
+        if (length < 1.0E-4D) {
+            return;
+        }
+
+        getEntityData().set(DATA_HIT_DIR_X, (float) (x / length));
+        getEntityData().set(DATA_HIT_DIR_Z, (float) (z / length));
     }
 
     private void dropReward(ServerLevel level, ItemStack stack) {
