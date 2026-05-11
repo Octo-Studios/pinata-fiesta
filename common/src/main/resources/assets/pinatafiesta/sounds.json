@@ -28,5 +28,23 @@
     "sounds": [
       "pinatafiesta:entity/pinata/hurt3"
     ]
+  },
+  "entity.pinata.hurt4": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt4"
+    ]
+  },
+  "entity.pinata.hurt5": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt5"
+    ]
+  },
+  "entity.pinata.hurt6": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt6"
+    ]
   }
 }

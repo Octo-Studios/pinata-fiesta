@@ -20,7 +20,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 public class PinataEntity extends LivingEntity {
-    private static final int HITS_TO_BREAK = 100;
+    private static final int HITS_TO_BREAK = 10;
     private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_Z = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
@@ -61,7 +61,7 @@ public class PinataEntity extends LivingEntity {
             return true;
         }
 
-        level.playSound(null, getX(), getY(), getZ(), ModContent.randomPinataHurtSound(random.nextInt(3)), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
+        level.playSound(null, getX(), getY(), getZ(), ModContent.randomPinataHurtSound(random.nextInt(6)), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
     }
 

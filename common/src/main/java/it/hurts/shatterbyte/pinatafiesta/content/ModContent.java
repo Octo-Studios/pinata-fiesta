@@ -26,6 +26,9 @@ public final class ModContent {
     private static Supplier<SoundEvent> pinataHurt1Sound;
     private static Supplier<SoundEvent> pinataHurt2Sound;
     private static Supplier<SoundEvent> pinataHurt3Sound;
+    private static Supplier<SoundEvent> pinataHurt4Sound;
+    private static Supplier<SoundEvent> pinataHurt5Sound;
+    private static Supplier<SoundEvent> pinataHurt6Sound;
     private static boolean registered;
 
     private ModContent() {
@@ -53,6 +56,9 @@ public final class ModContent {
         pinataHurt1Sound = registrar.registerSound("entity.pinata.hurt1");
         pinataHurt2Sound = registrar.registerSound("entity.pinata.hurt2");
         pinataHurt3Sound = registrar.registerSound("entity.pinata.hurt3");
+        pinataHurt4Sound = registrar.registerSound("entity.pinata.hurt4");
+        pinataHurt5Sound = registrar.registerSound("entity.pinata.hurt5");
+        pinataHurt6Sound = registrar.registerSound("entity.pinata.hurt6");
 
         registered = true;
     }
@@ -77,7 +83,10 @@ public final class ModContent {
         return switch (variantIndex) {
             case 0 -> pinataHurt1Sound.get();
             case 1 -> pinataHurt2Sound.get();
-            default -> pinataHurt3Sound.get();
+            case 3 -> pinataHurt3Sound.get();
+            case 4 -> pinataHurt4Sound.get();
+            case 5 -> pinataHurt5Sound.get();
+            default -> pinataHurt6Sound.get();
         };
     }
 
