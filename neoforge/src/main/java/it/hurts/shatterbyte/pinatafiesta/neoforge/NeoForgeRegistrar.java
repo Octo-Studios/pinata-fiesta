@@ -3,6 +3,7 @@ package it.hurts.shatterbyte.pinatafiesta.neoforge;
 import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -13,6 +14,7 @@ import java.util.function.Supplier;
 public class NeoForgeRegistrar implements ModContent.Registrar {
     private final DeferredRegister<EntityType<?>> entityTypes = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Constants.MOD_ID);
     private final DeferredRegister<Item> items = DeferredRegister.create(BuiltInRegistries.ITEM, Constants.MOD_ID);
+    private final DeferredRegister<SoundEvent> soundEvents = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Constants.MOD_ID);
 
     @Override
     public <T extends EntityType<?>> Supplier<T> registerEntity(String name, Supplier<T> entityType) {
@@ -24,8 +26,14 @@ public class NeoForgeRegistrar implements ModContent.Registrar {
         return items.register(name, item);
     }
 
+    @Override
+    public Supplier<SoundEvent> registerSound(String name) {
+        return soundEvents.register(name, () -> SoundEvent.createVariableRangeEvent(Constants.id(name)));
+    }
+
     public void register(IEventBus eventBus) {
         entityTypes.register(eventBus);
         items.register(eventBus);
+        soundEvents.register(eventBus);
     }
 }

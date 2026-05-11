@@ -1,10 +1,10 @@
 package it.hurts.shatterbyte.pinatafiesta.entity;
 
+import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -61,7 +61,7 @@ public class PinataEntity extends LivingEntity {
             return true;
         }
 
-        level.playSound(null, getX(), getY(), getZ(), SoundEvents.WOOL_HIT, SoundSource.NEUTRAL, 0.9F, 0.8F + random.nextFloat() * 0.35F);
+        level.playSound(null, getX(), getY(), getZ(), ModContent.randomPinataHurtSound(random.nextInt(3)), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
     }
 
@@ -95,8 +95,7 @@ public class PinataEntity extends LivingEntity {
     }
 
     private void breakOpen(ServerLevel level) {
-        level.playSound(null, getX(), getY(), getZ(), SoundEvents.WOOL_BREAK, SoundSource.NEUTRAL, 1.0F, 0.9F + random.nextFloat() * 0.2F);
-        level.playSound(null, getX(), getY(), getZ(), SoundEvents.BUNDLE_DROP_CONTENTS, SoundSource.NEUTRAL, 0.9F, 1.0F);
+        level.playSound(null, getX(), getY(), getZ(), ModContent.pinataDeathSound(), SoundSource.NEUTRAL, 1.1F, 0.95F + random.nextFloat() * 0.1F);
 
         dropReward(level, new ItemStack(Items.EXPERIENCE_BOTTLE, 2 + random.nextInt(4)));
         dropReward(level, new ItemStack(Items.COOKIE, 4 + random.nextInt(5)));

@@ -4,6 +4,7 @@ import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 
@@ -19,6 +20,12 @@ public class FabricRegistrar implements ModContent.Registrar {
     @Override
     public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> item) {
         T registered = Registry.register(BuiltInRegistries.ITEM, Constants.id(name), item.get());
+        return () -> registered;
+    }
+
+    @Override
+    public Supplier<SoundEvent> registerSound(String name) {
+        SoundEvent registered = Registry.register(BuiltInRegistries.SOUND_EVENT, Constants.id(name), SoundEvent.createVariableRangeEvent(Constants.id(name)));
         return () -> registered;
     }
 }

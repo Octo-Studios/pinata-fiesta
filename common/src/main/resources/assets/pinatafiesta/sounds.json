@@ -1,0 +1,32 @@
+{
+  "entity.pinata.spawn": {
+    "subtitle": "entity.pinatafiesta.pinata.spawn",
+    "sounds": [
+      "pinatafiesta:entity/pinata/spawn"
+    ]
+  },
+  "entity.pinata.death": {
+    "subtitle": "entity.pinatafiesta.pinata.death",
+    "sounds": [
+      "pinatafiesta:entity/pinata/death"
+    ]
+  },
+  "entity.pinata.hurt1": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt1"
+    ]
+  },
+  "entity.pinata.hurt2": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt2"
+    ]
+  },
+  "entity.pinata.hurt3": {
+    "subtitle": "entity.pinatafiesta.pinata.hurt",
+    "sounds": [
+      "pinatafiesta:entity/pinata/hurt3"
+    ]
+  }
+}
