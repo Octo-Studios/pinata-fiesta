@@ -34,7 +34,8 @@ public class PinataEntity extends LivingEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, HITS_TO_BREAK)
-                .add(Attributes.GRAVITY, 0.03);
+                .add(Attributes.GRAVITY, 0.03)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1);
     }
 
     @Override
