@@ -61,7 +61,7 @@ public class PinataEntity extends LivingEntity {
             return true;
         }
 
-        level.playSound(null, getX(), getY(), getZ(), ModContent.randomPinataHurtSound(random.nextInt(6)), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
+        level.playSound(null, getX(), getY(), getZ(), ModContent.pinataHurtSound(), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
     }
 

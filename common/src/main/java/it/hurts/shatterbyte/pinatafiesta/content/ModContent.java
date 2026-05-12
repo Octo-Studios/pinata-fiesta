@@ -24,12 +24,7 @@ public final class ModContent {
     private static Supplier<Item> pinataSpawner;
     private static Supplier<SoundEvent> pinataSpawnSound;
     private static Supplier<SoundEvent> pinataDeathSound;
-    private static Supplier<SoundEvent> pinataHurt1Sound;
-    private static Supplier<SoundEvent> pinataHurt2Sound;
-    private static Supplier<SoundEvent> pinataHurt3Sound;
-    private static Supplier<SoundEvent> pinataHurt4Sound;
-    private static Supplier<SoundEvent> pinataHurt5Sound;
-    private static Supplier<SoundEvent> pinataHurt6Sound;
+    private static Supplier<SoundEvent> pinataHurtSound;
     private static Supplier<SimpleParticleType> confettiParticle;
     private static boolean registered;
 
@@ -55,12 +50,7 @@ public final class ModContent {
         );
         pinataSpawnSound = registrar.registerSound("entity.pinata.spawn");
         pinataDeathSound = registrar.registerSound("entity.pinata.death");
-        pinataHurt1Sound = registrar.registerSound("entity.pinata.hurt1");
-        pinataHurt2Sound = registrar.registerSound("entity.pinata.hurt2");
-        pinataHurt3Sound = registrar.registerSound("entity.pinata.hurt3");
-        pinataHurt4Sound = registrar.registerSound("entity.pinata.hurt4");
-        pinataHurt5Sound = registrar.registerSound("entity.pinata.hurt5");
-        pinataHurt6Sound = registrar.registerSound("entity.pinata.hurt6");
+        pinataHurtSound = registrar.registerSound("entity.pinata.hurt");
         confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {
         });
 
@@ -83,19 +73,12 @@ public final class ModContent {
         return pinataDeathSound.get();
     }
 
-    public static SimpleParticleType confettiParticle() {
-        return confettiParticle.get();
+    public static SoundEvent pinataHurtSound() {
+        return pinataHurtSound.get();
     }
 
-    public static SoundEvent randomPinataHurtSound(int variantIndex) {
-        return switch (variantIndex) {
-            case 0 -> pinataHurt1Sound.get();
-            case 1 -> pinataHurt2Sound.get();
-            case 3 -> pinataHurt3Sound.get();
-            case 4 -> pinataHurt4Sound.get();
-            case 5 -> pinataHurt5Sound.get();
-            default -> pinataHurt6Sound.get();
-        };
+    public static SimpleParticleType confettiParticle() {
+        return confettiParticle.get();
     }
 
     public interface Registrar {

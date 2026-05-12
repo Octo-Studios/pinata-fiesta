@@ -11,39 +11,14 @@
       "pinatafiesta:entity/pinata/death"
     ]
   },
-  "entity.pinata.hurt1": {
+  "entity.pinata.hurt": {
     "subtitle": "entity.pinatafiesta.pinata.hurt",
     "sounds": [
-      "pinatafiesta:entity/pinata/hurt1"
-    ]
-  },
-  "entity.pinata.hurt2": {
-    "subtitle": "entity.pinatafiesta.pinata.hurt",
-    "sounds": [
-      "pinatafiesta:entity/pinata/hurt2"
-    ]
-  },
-  "entity.pinata.hurt3": {
-    "subtitle": "entity.pinatafiesta.pinata.hurt",
-    "sounds": [
-      "pinatafiesta:entity/pinata/hurt3"
-    ]
-  },
-  "entity.pinata.hurt4": {
-    "subtitle": "entity.pinatafiesta.pinata.hurt",
-    "sounds": [
-      "pinatafiesta:entity/pinata/hurt4"
-    ]
-  },
-  "entity.pinata.hurt5": {
-    "subtitle": "entity.pinatafiesta.pinata.hurt",
-    "sounds": [
-      "pinatafiesta:entity/pinata/hurt5"
-    ]
-  },
-  "entity.pinata.hurt6": {
-    "subtitle": "entity.pinatafiesta.pinata.hurt",
-    "sounds": [
+      "pinatafiesta:entity/pinata/hurt1",
+      "pinatafiesta:entity/pinata/hurt2",
+      "pinatafiesta:entity/pinata/hurt3",
+      "pinatafiesta:entity/pinata/hurt4",
+      "pinatafiesta:entity/pinata/hurt5",
       "pinatafiesta:entity/pinata/hurt6"
     ]
   }
