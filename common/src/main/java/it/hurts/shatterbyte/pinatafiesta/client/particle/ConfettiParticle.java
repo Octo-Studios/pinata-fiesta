@@ -22,8 +22,8 @@ public class ConfettiParticle extends SingleQuadParticle {
         this.zd = zSpeed + (random.nextDouble() - 0.5D) * 0.08D;
         this.quadSize = 0.075F + random.nextFloat() * 0.045F;
         this.lifetime = 100 + random.nextInt(35);
-        this.gravity = 0.05F + random.nextFloat() * 0.012F;
-        this.friction = 0.85F;
+        this.gravity = 0.1F + random.nextFloat() * 0.012F;
+        this.friction = 0.875F;
         this.roll = random.nextFloat() * Mth.TWO_PI;
         this.oRoll = this.roll;
         this.spinSpeed = (random.nextFloat() - 0.5F) * 0.45F;
@@ -49,8 +49,17 @@ public class ConfettiParticle extends SingleQuadParticle {
         this.oRoll = this.roll;
         if (!this.onGround) {
             this.roll += this.spinSpeed;
-            this.xd += Math.sin((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
-            this.zd += Math.cos((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
+
+            float swayStart = this.lifetime * 0.2F;
+            float swayMax = this.lifetime * 0.5F;
+
+            if (this.yd < 0.0D && this.age >= swayStart) {
+                float swayProgress = Mth.clamp((this.age - swayStart) / (swayMax - swayStart), 0.0F, 1.0F);
+                float currentSwayStrength = this.swayStrength * swayProgress;
+
+                this.xd += Math.sin((this.age + this.swaySpeed) * this.swaySpeed) * currentSwayStrength;
+                this.zd += Math.cos((this.age + this.swaySpeed) * this.swaySpeed) * currentSwayStrength;
+            }
         }
 
         float fadeStart = this.lifetime * 0.75F;
