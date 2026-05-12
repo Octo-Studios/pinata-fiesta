@@ -2,6 +2,8 @@ package it.hurts.shatterbyte.pinatafiesta.neoforge;
 
 import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -15,6 +17,7 @@ public class NeoForgeRegistrar implements ModContent.Registrar {
     private final DeferredRegister<EntityType<?>> entityTypes = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, Constants.MOD_ID);
     private final DeferredRegister<Item> items = DeferredRegister.create(BuiltInRegistries.ITEM, Constants.MOD_ID);
     private final DeferredRegister<SoundEvent> soundEvents = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Constants.MOD_ID);
+    private final DeferredRegister<ParticleType<?>> particleTypes = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Constants.MOD_ID);
 
     @Override
     public <T extends EntityType<?>> Supplier<T> registerEntity(String name, Supplier<T> entityType) {
@@ -31,9 +34,15 @@ public class NeoForgeRegistrar implements ModContent.Registrar {
         return soundEvents.register(name, () -> SoundEvent.createVariableRangeEvent(Constants.id(name)));
     }
 
+    @Override
+    public <T extends SimpleParticleType> Supplier<T> registerParticle(String name, Supplier<T> particleType) {
+        return particleTypes.register(name, particleType);
+    }
+
     public void register(IEventBus eventBus) {
         entityTypes.register(eventBus);
         items.register(eventBus);
         soundEvents.register(eventBus);
+        particleTypes.register(eventBus);
     }
 }

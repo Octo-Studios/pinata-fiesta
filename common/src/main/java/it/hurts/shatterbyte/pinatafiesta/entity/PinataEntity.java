@@ -96,6 +96,7 @@ public class PinataEntity extends LivingEntity {
 
     private void breakOpen(ServerLevel level) {
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataDeathSound(), SoundSource.NEUTRAL, 1.1F, 0.95F + random.nextFloat() * 0.1F);
+        level.sendParticles(ModContent.confettiParticle(), getX(), getY(0.65D), getZ(), 150, 0.25D, 0.25D, 0.25D, 0.275D);
 
         dropReward(level, new ItemStack(Items.EXPERIENCE_BOTTLE, 2 + random.nextInt(4)));
         dropReward(level, new ItemStack(Items.COOKIE, 4 + random.nextInt(5)));

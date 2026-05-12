@@ -4,6 +4,7 @@ import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import it.hurts.shatterbyte.pinatafiesta.item.PinataSpawnerItem;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -29,6 +30,7 @@ public final class ModContent {
     private static Supplier<SoundEvent> pinataHurt4Sound;
     private static Supplier<SoundEvent> pinataHurt5Sound;
     private static Supplier<SoundEvent> pinataHurt6Sound;
+    private static Supplier<SimpleParticleType> confettiParticle;
     private static boolean registered;
 
     private ModContent() {
@@ -59,6 +61,8 @@ public final class ModContent {
         pinataHurt4Sound = registrar.registerSound("entity.pinata.hurt4");
         pinataHurt5Sound = registrar.registerSound("entity.pinata.hurt5");
         pinataHurt6Sound = registrar.registerSound("entity.pinata.hurt6");
+        confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {
+        });
 
         registered = true;
     }
@@ -79,6 +83,10 @@ public final class ModContent {
         return pinataDeathSound.get();
     }
 
+    public static SimpleParticleType confettiParticle() {
+        return confettiParticle.get();
+    }
+
     public static SoundEvent randomPinataHurtSound(int variantIndex) {
         return switch (variantIndex) {
             case 0 -> pinataHurt1Sound.get();
@@ -96,5 +104,7 @@ public final class ModContent {
         <T extends Item> Supplier<T> registerItem(String name, Supplier<T> item);
 
         Supplier<SoundEvent> registerSound(String name);
+
+        <T extends SimpleParticleType> Supplier<T> registerParticle(String name, Supplier<T> particleType);
     }
 }
