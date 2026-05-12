@@ -45,12 +45,15 @@ public class ConfettiParticle extends SingleQuadParticle {
             return;
         }
 
-        this.oRoll = this.roll;
-        this.roll += this.spinSpeed;
-        this.xd += Math.sin((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
-        this.zd += Math.cos((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
 
-        float fadeStart = this.lifetime * 0.65F;
+        this.oRoll = this.roll;
+        if (!this.onGround) {
+            this.roll += this.spinSpeed;
+            this.xd += Math.sin((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
+            this.zd += Math.cos((this.age + this.swaySpeed) * this.swaySpeed) * this.swayStrength;
+        }
+
+        float fadeStart = this.lifetime * 0.75F;
         if (this.age > fadeStart) {
             setAlpha(1.0F - (this.age - fadeStart) / (this.lifetime - fadeStart));
         }
