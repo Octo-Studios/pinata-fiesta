@@ -85,13 +85,13 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
-        output.putInt("Hits", hits);
+        output.putInt("hits", hits);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        hits = input.getIntOr("Hits", 0);
+        hits = input.getIntOr("hits", 0);
     }
 
     private void breakOpen(ServerLevel level) {
