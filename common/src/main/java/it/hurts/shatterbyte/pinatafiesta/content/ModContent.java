@@ -26,6 +26,7 @@ public final class ModContent {
     private static Supplier<SoundEvent> pinataDeathSound;
     private static Supplier<SoundEvent> pinataHurtSound;
     private static Supplier<SimpleParticleType> confettiParticle;
+    private static Supplier<SimpleParticleType> paperParticle;
     private static boolean registered;
 
     private ModContent() {
@@ -51,8 +52,8 @@ public final class ModContent {
         pinataSpawnSound = registrar.registerSound("entity.pinata.spawn");
         pinataDeathSound = registrar.registerSound("entity.pinata.death");
         pinataHurtSound = registrar.registerSound("entity.pinata.hurt");
-        confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {
-        });
+        confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {});
+        paperParticle = registrar.registerParticle("paper", () -> new SimpleParticleType(false) {});
 
         registered = true;
     }
@@ -79,6 +80,10 @@ public final class ModContent {
 
     public static SimpleParticleType confettiParticle() {
         return confettiParticle.get();
+    }
+
+    public static SimpleParticleType paperParticle() {
+        return paperParticle.get();
     }
 
     public interface Registrar {

@@ -4,6 +4,7 @@ import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.client.entity.PinataModel;
 import it.hurts.shatterbyte.pinatafiesta.client.entity.renderer.PinataRenderer;
 import it.hurts.shatterbyte.pinatafiesta.client.particle.ConfettiParticle;
+import it.hurts.shatterbyte.pinatafiesta.client.particle.PaperParticle;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import it.hurts.shatterbyte.pinatafiesta.content.ModEntityModelLayers;
 import net.neoforged.api.distmarker.Dist;
@@ -31,5 +32,6 @@ public final class PinataFiestaNeoForgeClient {
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ModContent.confettiParticle(), ConfettiParticle.Provider::new);
+        event.registerSpriteSet(ModContent.paperParticle(), PaperParticle.Provider::new);
     }
 }

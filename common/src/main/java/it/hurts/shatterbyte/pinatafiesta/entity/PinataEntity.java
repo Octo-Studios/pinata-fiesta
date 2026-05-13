@@ -57,6 +57,8 @@ public class PinataEntity extends LivingEntity {
         getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         markHurt();
 
+        level.sendParticles(ModContent.paperParticle(), getX(), getY(0.65f), getZ(), 10, 0.2D, 0.2D, 0.2D, 0.1D);
+
         if (hits >= HITS_TO_BREAK) {
             breakOpen(level);
             return true;

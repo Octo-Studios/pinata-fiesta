@@ -10,25 +10,25 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
-public class ConfettiParticle extends SwayingParticle {
-    protected ConfettiParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, TextureAtlasSprite sprite, RandomSource random) {
+public class PaperParticle extends SwayingParticle {
+    protected PaperParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, TextureAtlasSprite sprite, RandomSource random) {
         super(level, x, y, z, xSpeed, ySpeed, zSpeed, 0.45f, 0.05f, 0.003f, sprite, random);
-        this.xd = xSpeed + (random.nextDouble() - 0.5D) * 0.08D;
-        this.yd = ySpeed + 0.025d + random.nextDouble() * 0.08D;
-        this.zd = zSpeed + (random.nextDouble() - 0.5D) * 0.08D;
+        this.xd = xSpeed + (random.nextDouble() - 0.5D) * 0.01D;
+        this.yd = ySpeed + 0.01d + random.nextDouble() * 0.01D;
+        this.zd = zSpeed + (random.nextDouble() - 0.5D) * 0.01D;
         this.quadSize = 0.075F + random.nextFloat() * 0.045F;
-        this.lifetime = 100 + random.nextInt(35);
-        this.gravity = 0.1F + random.nextFloat() * 0.012F;
-        this.friction = 0.875F;
+        this.lifetime = 40 + random.nextInt(35);
+        this.gravity = 0.25F + random.nextFloat() * 0.012F;
+        this.friction = 0.94F;
         this.roll = random.nextFloat() * Mth.TWO_PI;
         this.oRoll = this.roll;
-        setSize(0.04F, 0.04F);
+        setSize(0.06F, 0.06F);
     }
 
     public record Provider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
         @Override
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
-            return new ConfettiParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites.get(random), random);
+            return new PaperParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites.get(random), random);
         }
     }
 }
