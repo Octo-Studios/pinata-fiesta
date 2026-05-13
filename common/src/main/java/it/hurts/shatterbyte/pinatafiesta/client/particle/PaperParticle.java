@@ -18,7 +18,7 @@ public class PaperParticle extends SwayingParticle {
         this.zd = zSpeed + (random.nextDouble() - 0.5D) * 0.01D;
         this.quadSize = 0.075F + random.nextFloat() * 0.045F;
         this.lifetime = 40 + random.nextInt(35);
-        this.gravity = 0.35F + random.nextFloat() * 0.012F;
+        this.gravity = 0.5F + random.nextFloat() * 0.012F;
         this.friction = 0.94F;
         this.roll = random.nextFloat() * Mth.TWO_PI;
         this.oRoll = this.roll;
