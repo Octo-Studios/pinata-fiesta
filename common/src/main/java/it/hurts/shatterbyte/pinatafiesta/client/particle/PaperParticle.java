@@ -14,11 +14,11 @@ public class PaperParticle extends SwayingParticle {
     protected PaperParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, TextureAtlasSprite sprite, RandomSource random) {
         super(level, x, y, z, xSpeed, ySpeed, zSpeed, 0.45f, 0.05f, 0.003f, sprite, random);
         this.xd = xSpeed + (random.nextDouble() - 0.5D) * 0.01D;
-        this.yd = ySpeed + 0.01d + random.nextDouble() * 0.01D;
+        this.yd = ySpeed/2f + Mth.abs((float) (ySpeed/2f)) + random.nextDouble() * 0.015D;
         this.zd = zSpeed + (random.nextDouble() - 0.5D) * 0.01D;
         this.quadSize = 0.075F + random.nextFloat() * 0.045F;
         this.lifetime = 40 + random.nextInt(35);
-        this.gravity = 0.25F + random.nextFloat() * 0.012F;
+        this.gravity = 0.35F + random.nextFloat() * 0.012F;
         this.friction = 0.94F;
         this.roll = random.nextFloat() * Mth.TWO_PI;
         this.oRoll = this.roll;
