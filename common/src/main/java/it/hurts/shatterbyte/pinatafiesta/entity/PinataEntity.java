@@ -57,7 +57,7 @@ public class PinataEntity extends LivingEntity {
         getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         markHurt();
 
-        level.sendParticles(ModContent.paperParticle(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
+        level.sendParticles(ModContent.sunsetPaper(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
 
         if (hits >= HITS_TO_BREAK) {
             breakOpen(level);
@@ -99,7 +99,7 @@ public class PinataEntity extends LivingEntity {
 
     private void breakOpen(ServerLevel level) {
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataDeathSound(), SoundSource.NEUTRAL, 1.1F, 0.95F + random.nextFloat() * 0.1F);
-        level.sendParticles(ModContent.confettiParticle(), getX(), getY(0.65D), getZ(), 256, 0.25D, 0.25D, 0.25D, 0.275D);
+        level.sendParticles(ModContent.sunsetConfetti(), getX(), getY(0.65D), getZ(), 256, 0.25D, 0.25D, 0.25D, 0.275D);
 
         dropReward(level, new ItemStack(Items.EXPERIENCE_BOTTLE, 2 + random.nextInt(4)));
         dropReward(level, new ItemStack(Items.COOKIE, 4 + random.nextInt(5)));

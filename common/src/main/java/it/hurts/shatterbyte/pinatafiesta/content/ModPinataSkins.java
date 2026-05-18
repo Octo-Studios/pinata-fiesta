@@ -12,8 +12,8 @@ public class ModPinataSkins {
 
     public static final Skin SUNSET = registerSkin(
             Constants.id("sunset"),
-            ModContent::confettiParticle,
-            ModContent::paperParticle
+            ModContent::sunsetConfetti,
+            ModContent::sunsetPaper
     );
 
     public static Skin registerSkin(Identifier skinId, Supplier<SimpleParticleType> confettiParticle, Supplier<SimpleParticleType> paperParticle) {
@@ -26,7 +26,11 @@ public class ModPinataSkins {
         return SKINS.get(skinId);
     }
 
-    public static List<Identifier> getAllSkins() {
+    public static List<Skin> getSkins() {
+        return new ArrayList<>(SKINS.values());
+    }
+
+    public static List<Identifier> getSkinIds() {
         return new ArrayList<>(SKINS.keySet());
     }
 

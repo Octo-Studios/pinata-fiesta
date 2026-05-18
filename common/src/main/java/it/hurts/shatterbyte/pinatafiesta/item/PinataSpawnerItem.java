@@ -15,7 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class PinataSpawnerItem extends Item {
     public PinataSpawnerItem(Properties properties) {
-        super(properties.component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getAllSkins()));
+        super(properties.component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getSkinIds()));
     }
 
     @Override

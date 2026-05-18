@@ -22,11 +22,15 @@ public final class ModContent {
 
     private static Supplier<EntityType<PinataEntity>> pinataEntity;
     private static Supplier<Item> pinataSpawner;
+
     private static Supplier<SoundEvent> pinataSpawnSound;
     private static Supplier<SoundEvent> pinataDeathSound;
     private static Supplier<SoundEvent> pinataHurtSound;
-    private static Supplier<SimpleParticleType> confettiParticle;
-    private static Supplier<SimpleParticleType> paperParticle;
+
+    private static Supplier<SimpleParticleType> sunsetConfetti;
+    private static Supplier<SimpleParticleType> sunsetPaper;
+    private static Supplier<SimpleParticleType> aquamarineConfetti;
+    private static Supplier<SimpleParticleType> aquamarinePaper;
     private static boolean registered;
 
     private ModContent() {
@@ -53,8 +57,10 @@ public final class ModContent {
         pinataDeathSound = registrar.registerSound("entity.pinata.death");
         pinataHurtSound = registrar.registerSound("entity.pinata.hurt");
 
-        confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {});
-        paperParticle = registrar.registerParticle("paper", () -> new SimpleParticleType(false) {});
+        sunsetConfetti = registrar.registerParticle("sunset_confetti", () -> new SimpleParticleType(false) {});
+        sunsetPaper = registrar.registerParticle("sunset_paper", () -> new SimpleParticleType(false) {});
+        aquamarineConfetti = registrar.registerParticle("aquamarine_confetti", () -> new SimpleParticleType(false) {});
+        aquamarinePaper = registrar.registerParticle("aquamarine_paper", () -> new SimpleParticleType(false) {});
 
         registered = true;
     }
@@ -79,12 +85,20 @@ public final class ModContent {
         return pinataHurtSound.get();
     }
 
-    public static SimpleParticleType confettiParticle() {
-        return confettiParticle.get();
+    public static SimpleParticleType sunsetConfetti() {
+        return sunsetConfetti.get();
     }
 
-    public static SimpleParticleType paperParticle() {
-        return paperParticle.get();
+    public static SimpleParticleType sunsetPaper() {
+        return sunsetPaper.get();
+    }
+
+    public static SimpleParticleType aquamarineConfetti() {
+        return aquamarineConfetti.get();
+    }
+
+    public static SimpleParticleType aquamarinePaper() {
+        return aquamarinePaper.get();
     }
 
     public interface Registrar {

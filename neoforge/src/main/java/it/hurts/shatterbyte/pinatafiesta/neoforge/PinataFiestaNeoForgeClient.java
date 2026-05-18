@@ -31,7 +31,9 @@ public final class PinataFiestaNeoForgeClient {
 
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModContent.confettiParticle(), ConfettiParticle.Provider::new);
-        event.registerSpriteSet(ModContent.paperParticle(), PaperParticle.Provider::new);
+        event.registerSpriteSet(ModContent.sunsetConfetti(), ConfettiParticle.Provider::new);
+        event.registerSpriteSet(ModContent.sunsetPaper(), PaperParticle.Provider::new);
+        event.registerSpriteSet(ModContent.aquamarineConfetti(), ConfettiParticle.Provider::new);
+        event.registerSpriteSet(ModContent.aquamarinePaper(), PaperParticle.Provider::new);
     }
 }

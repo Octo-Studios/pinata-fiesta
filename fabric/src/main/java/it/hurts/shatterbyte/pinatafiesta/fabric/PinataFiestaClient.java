@@ -17,7 +17,10 @@ public class PinataFiestaClient implements ClientModInitializer {
         ModelLayerRegistry.registerModelLayer(ModEntityModelLayers.PINATA, PinataModel::createBodyLayer);
 
         EntityRenderers.register(ModContent.pinataEntity(), PinataRenderer::new);
-        ParticleProviderRegistry.getInstance().register(ModContent.confettiParticle(), ConfettiParticle.Provider::new);
-        ParticleProviderRegistry.getInstance().register(ModContent.paperParticle(), PaperParticle.Provider::new);
+
+        ParticleProviderRegistry.getInstance().register(ModContent.sunsetConfetti(), ConfettiParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModContent.sunsetPaper(), PaperParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModContent.aquamarineConfetti(), ConfettiParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModContent.aquamarinePaper(), PaperParticle.Provider::new);
     }
 }
