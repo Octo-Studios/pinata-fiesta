@@ -52,6 +52,7 @@ public final class ModContent {
         pinataSpawnSound = registrar.registerSound("entity.pinata.spawn");
         pinataDeathSound = registrar.registerSound("entity.pinata.death");
         pinataHurtSound = registrar.registerSound("entity.pinata.hurt");
+
         confettiParticle = registrar.registerParticle("confetti", () -> new SimpleParticleType(false) {});
         paperParticle = registrar.registerParticle("paper", () -> new SimpleParticleType(false) {});
 
