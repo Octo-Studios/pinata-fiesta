@@ -4,12 +4,11 @@ import it.hurts.shatterbyte.pinatafiesta.Constants;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.Identifier;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class ModPinataSkins {
-    public static final Set<Identifier> SKINS = new HashSet<>();
+    private static final Map<Identifier, Skin> SKINS = new HashMap<>();
 
     public static final Skin SUNSET = registerSkin(
             Constants.id("sunset"),
@@ -19,8 +18,16 @@ public class ModPinataSkins {
 
     public static Skin registerSkin(Identifier skinId, Supplier<SimpleParticleType> confettiParticle, Supplier<SimpleParticleType> paperParticle) {
         Skin skin = new Skin(skinId, confettiParticle, paperParticle);
-        SKINS.add(skinId);
+        SKINS.put(skinId, skin);
         return skin;
+    }
+
+    public static Skin getSkin(Identifier skinId) {
+        return SKINS.get(skinId);
+    }
+
+    public static List<Identifier> getAllSkins() {
+        return new ArrayList<>(SKINS.keySet());
     }
 
     public static class Skin {

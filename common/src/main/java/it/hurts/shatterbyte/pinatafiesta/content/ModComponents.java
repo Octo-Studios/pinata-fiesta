@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import java.util.List;
 
 public class ModComponents {
-	public static final DataComponentType<?> SKINS_COMPONENT_TYPE = Registry.register(
+	public static final DataComponentType<List<Identifier>> SKINS_COMPONENT_TYPE = Registry.register(
 			BuiltInRegistries.DATA_COMPONENT_TYPE,
 			Identifier.fromNamespaceAndPath(Constants.MOD_ID, "skins"),
 			DataComponentType.<List<Identifier>>builder().persistent(Identifier.CODEC.listOf()).build()

@@ -1,6 +1,8 @@
 package it.hurts.shatterbyte.pinatafiesta.item;
 
+import it.hurts.shatterbyte.pinatafiesta.content.ModComponents;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
+import it.hurts.shatterbyte.pinatafiesta.content.ModPinataSkins;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -13,7 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class PinataSpawnerItem extends Item {
     public PinataSpawnerItem(Properties properties) {
-        super(properties);
+        super(properties.component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getAllSkins()));
     }
 
     @Override
