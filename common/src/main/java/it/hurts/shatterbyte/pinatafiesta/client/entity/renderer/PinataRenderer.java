@@ -118,8 +118,8 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 			float side = hitDirX * rightX + hitDirZ * rightZ;
 			float frontBack = hitDirX * forwardX + hitDirZ * forwardZ;
 
-			float targetXOffset = hitDirX * 0.22F;
-			float targetZOffset = hitDirZ * 0.22F;
+			float targetXOffset = hitDirX * 0.33F;
+			float targetZOffset = hitDirZ * 0.33F;
 			float targetZRotation = side * 16.0F;
 			float targetXRotation = frontBack * 16.0F;
 
@@ -141,9 +141,6 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 			tween.tweenMethod(this::setXRotation, targetXRotation, 0.0F, 1.05D)
 					.setEaseType(EaseType.EASE_OUT)
 					.setTransitionType(TransitionType.ELASTIC);
-			tween.tweenMethod(this::setYScale, 0.78F, 1.08F, 0.38D)
-					.setEaseType(EaseType.EASE_OUT)
-					.setTransitionType(TransitionType.QUAD);
 			tween.tweenMethod(this::setYScale, 0.85F, 1.0F, 1.35D)
 					.setEaseType(EaseType.EASE_OUT)
 					.setTransitionType(TransitionType.ELASTIC);
