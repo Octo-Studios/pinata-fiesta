@@ -3,7 +3,9 @@ package it.hurts.shatterbyte.pinatafiesta.item;
 import it.hurts.shatterbyte.pinatafiesta.content.ModComponents;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import it.hurts.shatterbyte.pinatafiesta.content.ModPinataSkins;
+import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -13,9 +15,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 
+import java.util.List;
+
 public class PinataSpawnerItem extends Item {
     public PinataSpawnerItem(Properties properties) {
-        super(properties.component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getSkinIds()));
+        super(properties);
     }
 
     @Override
@@ -33,11 +37,16 @@ public class PinataSpawnerItem extends Item {
         ItemStack stack = context.getItemInHand();
         BlockPos spawnPos = context.getClickedPos().relative(context.getClickedFace());
 
-        var pinata = ModContent.pinataEntity().create(serverLevel, null, spawnPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+        PinataEntity pinata = ModContent.pinataEntity().create(serverLevel, null, spawnPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
         if (pinata == null) {
             return InteractionResult.FAIL;
         }
+
+        List<Identifier> skins = this.components().get(ModComponents.SKINS_COMPONENT_TYPE);
+        Identifier skinId = skins.get(player.getRandom().nextInt(skins.size()));
+        ModPinataSkins.Skin skin = ModPinataSkins.getSkin(skinId);
+        pinata.setSkin(skin);
 
         player.level().addFreshEntity(pinata);
 

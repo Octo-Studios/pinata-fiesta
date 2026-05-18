@@ -51,7 +51,11 @@ public final class ModContent {
         );
         pinataSpawner = registrar.registerItem(
                 "pinata_spawner",
-                () -> new PinataSpawnerItem(new Item.Properties().stacksTo(16).setId(PINATA_SPAWNER_KEY))
+                () -> new PinataSpawnerItem(new Item.Properties()
+                        .component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getSkinIds())
+                        .stacksTo(16)
+                        .setId(PINATA_SPAWNER_KEY)
+                )
         );
         pinataSpawnSound = registrar.registerSound("entity.pinata.spawn");
         pinataDeathSound = registrar.registerSound("entity.pinata.death");

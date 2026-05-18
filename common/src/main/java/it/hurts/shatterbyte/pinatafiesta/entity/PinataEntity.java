@@ -1,9 +1,12 @@
 package it.hurts.shatterbyte.pinatafiesta.entity;
 
+import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
+import it.hurts.shatterbyte.pinatafiesta.content.ModPinataSkins;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,6 +28,7 @@ public class PinataEntity extends LivingEntity {
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_Z = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
 
+    private ModPinataSkins.Skin skin;
     private int hits;
 
     public PinataEntity(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -57,7 +61,7 @@ public class PinataEntity extends LivingEntity {
         getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         markHurt();
 
-        level.sendParticles(ModContent.sunsetPaper(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
+        level.sendParticles(skin.getPaperParticle(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
 
         if (hits >= HITS_TO_BREAK) {
             breakOpen(level);
@@ -66,6 +70,14 @@ public class PinataEntity extends LivingEntity {
 
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataHurtSound(), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
+    }
+
+    public void setSkin(ModPinataSkins.Skin skin) {
+        this.skin = skin;
+    }
+
+    public ModPinataSkins.Skin getSkin() {
+        return this.skin;
     }
 
     public int getHitCounter() {
@@ -88,18 +100,20 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
+        output.putString("skin", skin.id.toString());
         output.putInt("hits", hits);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
+        skin = ModPinataSkins.getSkin(Identifier.parse(input.getStringOr("skin", Constants.MOD_ID+":sunset")));
         hits = input.getIntOr("hits", 0);
     }
 
     private void breakOpen(ServerLevel level) {
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataDeathSound(), SoundSource.NEUTRAL, 1.1F, 0.95F + random.nextFloat() * 0.1F);
-        level.sendParticles(ModContent.sunsetConfetti(), getX(), getY(0.65D), getZ(), 256, 0.25D, 0.25D, 0.25D, 0.275D);
+        level.sendParticles(skin.getConfettiParticle(), getX(), getY(0.65D), getZ(), 256, 0.25D, 0.25D, 0.25D, 0.275D);
 
         dropReward(level, new ItemStack(Items.EXPERIENCE_BOTTLE, 2 + random.nextInt(4)));
         dropReward(level, new ItemStack(Items.COOKIE, 4 + random.nextInt(5)));
