@@ -29,13 +29,13 @@ repositories {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }
+    //maven {
+    //    name = 'Terraformers'
+    //    url = 'https://maven.terraformersmc.com/'
+    //}
     maven {
-        name = 'Terraformers'
-        url = 'https://maven.terraformersmc.com/'
-    }
-    maven {
-        name "octoStudiosReleases"
-        url "https://maven.octo-studios.com/releases"
+        name "shatterbyteReleases"
+        url "https://maven.shatterbyte.com/releases"
     }
 }
 
