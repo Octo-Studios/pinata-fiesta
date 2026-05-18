@@ -16,6 +16,12 @@ public class ModPinataSkins {
             ModContent::sunsetPaper
     );
 
+    public static final Skin AQUAMARINE = registerSkin(
+            Constants.id("aquamarine"),
+            ModContent::aquamarineConfetti,
+            ModContent::aquamarinePaper
+    );
+
     public static Skin registerSkin(Identifier skinId, Supplier<SimpleParticleType> confettiParticle, Supplier<SimpleParticleType> paperParticle) {
         Skin skin = new Skin(skinId, confettiParticle, paperParticle);
         SKINS.put(skinId, skin);
