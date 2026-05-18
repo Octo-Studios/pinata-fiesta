@@ -43,7 +43,7 @@ public class PinataSpawnerItem extends Item {
             return InteractionResult.FAIL;
         }
 
-        List<Identifier> skins = this.components().get(ModComponents.SKINS_COMPONENT_TYPE);
+        List<Identifier> skins = stack.get(ModComponents.SKINS_COMPONENT_TYPE);
         Identifier skinId = skins.get(player.getRandom().nextInt(skins.size()));
         ModPinataSkins.Skin skin = ModPinataSkins.getSkin(skinId);
         pinata.setSkin(skin);
