@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRenderState, PinataModel> {
-	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/pinata.png");
+	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/pinata/sunset.png");
 	private final Map<Integer, HitAnimation> hitAnimations = new HashMap<>();
 
 	public PinataRenderer(EntityRendererProvider.Context context) {
