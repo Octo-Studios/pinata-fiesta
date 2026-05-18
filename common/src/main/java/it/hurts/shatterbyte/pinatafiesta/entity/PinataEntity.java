@@ -24,6 +24,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class PinataEntity extends LivingEntity {
     private static final int HITS_TO_BREAK = 10;
+    private static final EntityDataAccessor<String> DATA_SKIN = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_Z = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
@@ -45,9 +46,21 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
+        builder.define(DATA_SKIN, Constants.MOD_ID + ":sunset");
         builder.define(DATA_HIT_COUNTER, 0);
         builder.define(DATA_HIT_DIR_X, 0.0F);
         builder.define(DATA_HIT_DIR_Z, 0.0F);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
+        super.onSyncedDataUpdated(accessor);
+
+        if (DATA_SKIN.equals(accessor)) {
+            this.skin = ModPinataSkins.getSkin(
+                    Identifier.parse(getEntityData().get(DATA_SKIN))
+            );
+        }
     }
 
     @Override
@@ -74,10 +87,17 @@ public class PinataEntity extends LivingEntity {
 
     public void setSkin(ModPinataSkins.Skin skin) {
         this.skin = skin;
+        getEntityData().set(DATA_SKIN, skin.id.toString());
     }
 
     public ModPinataSkins.Skin getSkin() {
-        return this.skin;
+        if (skin == null) {
+            skin = ModPinataSkins.getSkin(
+                    Identifier.parse(getEntityData().get(DATA_SKIN))
+            );
+        }
+
+        return skin;
     }
 
     public int getHitCounter() {
@@ -100,14 +120,19 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
-        output.putString("skin", skin.id.toString());
+        output.putString("skin", getEntityData().get(DATA_SKIN));
         output.putInt("hits", hits);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
-        skin = ModPinataSkins.getSkin(Identifier.parse(input.getStringOr("skin", Constants.MOD_ID+":sunset")));
+
+        String skinId = input.getStringOr("skin", Constants.MOD_ID + ":sunset");
+
+        getEntityData().set(DATA_SKIN, skinId);
+        skin = ModPinataSkins.getSkin(Identifier.parse(skinId));
+
         hits = input.getIntOr("hits", 0);
     }
 

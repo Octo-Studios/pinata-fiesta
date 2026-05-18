@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRenderState, PinataModel> {
-	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/pinata/sunset.png");
 	private final Map<Integer, HitAnimation> hitAnimations = new HashMap<>();
 
 	public PinataRenderer(EntityRendererProvider.Context context) {
@@ -80,11 +79,12 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 		state.hitXRotation = animation.xRotation;
 		state.hitZRotation = animation.zRotation;
 		state.hitYScale = animation.yScale;
+		state.texture = entity.getSkin().getSkinTexture();
 	}
 
 	@Override
 	public Identifier getTextureLocation(PinataRenderState state) {
-		return TEXTURE;
+		return state.texture;
 	}
 
 	private static final class HitAnimation {

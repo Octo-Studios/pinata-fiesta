@@ -51,6 +51,10 @@ public class ModPinataSkins {
             this.paperParticle = paperParticle;
         }
 
+        public Identifier getSkinTexture() {
+            return Identifier.fromNamespaceAndPath(id.getNamespace(), "textures/entity/pinata/"+id.getPath()+".png");
+        }
+
         public SimpleParticleType getConfettiParticle() {
             return confettiParticle.get();
         }
