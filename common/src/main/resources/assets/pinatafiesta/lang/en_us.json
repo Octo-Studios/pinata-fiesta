@@ -5,5 +5,8 @@
   
   "entity.pinatafiesta.pinata.spawn": "Piñata appears",
   "entity.pinatafiesta.pinata.death": "Piñata bursts",
-  "entity.pinatafiesta.pinata.hurt": "Piñata is hit"
+  "entity.pinatafiesta.pinata.hurt": "Piñata gets hit",
+
+  "skin.pinatafiesta.sunset": "Sunset",
+  "skin.pinatafiesta.aquamarine": "Aquamarine"
 }

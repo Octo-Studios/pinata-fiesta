@@ -1,6 +1,7 @@
 package it.hurts.shatterbyte.pinatafiesta.content;
 
 import it.hurts.shatterbyte.pinatafiesta.Constants;
+import it.hurts.shatterbyte.pinatafiesta.data.PinataDropData;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import it.hurts.shatterbyte.pinatafiesta.item.PinataSpawnerItem;
 import net.minecraft.core.registries.Registries;
@@ -53,6 +54,7 @@ public final class ModContent {
                 "pinata_spawner",
                 () -> new PinataSpawnerItem(new Item.Properties()
                         .component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getSkinIds())
+                        .component(ModComponents.DROP_DATA_COMPONENT_TYPE, new PinataDropData())
                         .stacksTo(16)
                         .setId(PINATA_SPAWNER_KEY)
                 )
