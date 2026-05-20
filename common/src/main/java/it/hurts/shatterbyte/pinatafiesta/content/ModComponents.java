@@ -1,5 +1,6 @@
 package it.hurts.shatterbyte.pinatafiesta.content;
 
+import com.mojang.serialization.Codec;
 import it.hurts.shatterbyte.pinatafiesta.Constants;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataDropData;
 import net.minecraft.core.Registry;
@@ -20,5 +21,11 @@ public class ModComponents {
 			BuiltInRegistries.DATA_COMPONENT_TYPE,
 			Constants.id("drop_data"),
 			DataComponentType.<PinataDropData>builder().persistent(PinataDropData.CODEC).build()
+	);
+
+	public static final DataComponentType<Integer> PINATA_HITS_COMPONENT_TYPE = Registry.register(
+			BuiltInRegistries.DATA_COMPONENT_TYPE,
+			Constants.id("pinata_hits"),
+			DataComponentType.<Integer>builder().persistent(Codec.INT).build()
 	);
 }

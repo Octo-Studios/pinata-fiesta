@@ -12,7 +12,6 @@ import net.minecraft.world.item.Items;
 public class CommonClass {
     public static void init() {
 
-        Constants.LOG.info("Registered {} as {}", Constants.MOD_NAME, ModContent.PINATA_IDENTIFIER);
     }
 
     public static ItemStack createTestSpawner() {
@@ -24,13 +23,14 @@ public class CommonClass {
                 .build();
 
         PinataDropData dropData = PinataDropData.builder()
-                .addSpawnAction(new RunCommandAction("say \"A Wild Pinata appears!\""))
+                .addSpawnAction(new RunCommandAction("say A Wild Pinata appears!"))
                 .addHitAction(weightedAction)
                 .addHitAction(weightedAction)
                 .addHitAction(weightedAction)
-                .addBreakAction(new RunCommandAction("say \"im stupid\""))
+                .addBreakAction(new RunCommandAction("say im stupid"))
                 .build();
 
+        stack.set(ModComponents.PINATA_HITS_COMPONENT_TYPE, 5);
         stack.set(ModComponents.DROP_DATA_COMPONENT_TYPE, dropData);
         return stack;
     }

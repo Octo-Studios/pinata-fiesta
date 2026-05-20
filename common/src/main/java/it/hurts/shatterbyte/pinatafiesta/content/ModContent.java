@@ -55,6 +55,7 @@ public final class ModContent {
                 () -> new PinataSpawnerItem(new Item.Properties()
                         .component(ModComponents.SKINS_COMPONENT_TYPE, ModPinataSkins.getSkinIds())
                         .component(ModComponents.DROP_DATA_COMPONENT_TYPE, PinataDropData.EMPTY)
+                        .component(ModComponents.PINATA_HITS_COMPONENT_TYPE, 10)
                         .stacksTo(16)
                         .setId(PINATA_SPAWNER_KEY)
                 )

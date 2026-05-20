@@ -1,14 +1,9 @@
 package it.hurts.shatterbyte.pinatafiesta.entity;
 
-import com.mojang.serialization.DataResult;
 import it.hurts.shatterbyte.pinatafiesta.Constants;
-import it.hurts.shatterbyte.pinatafiesta.content.ModComponents;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import it.hurts.shatterbyte.pinatafiesta.content.ModPinataSkins;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataDropData;
-import it.unimi.dsi.fastutil.booleans.BooleanUnaryOperator;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -31,7 +25,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class PinataEntity extends LivingEntity {
-    private static final int HITS_TO_BREAK = 10;
     private static final EntityDataAccessor<String> DATA_SKIN = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
@@ -39,7 +32,7 @@ public class PinataEntity extends LivingEntity {
 
     private PinataDropData dropData = PinataDropData.EMPTY;
     private ModPinataSkins.Skin skin = ModPinataSkins.SUNSET;
-    private int hits;
+    private int hitsLeft = 10;
 
     public PinataEntity(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
@@ -47,7 +40,7 @@ public class PinataEntity extends LivingEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, HITS_TO_BREAK)
+                .add(Attributes.MAX_HEALTH, 2)
                 .add(Attributes.GRAVITY, 0.03)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1);
     }
@@ -78,7 +71,7 @@ public class PinataEntity extends LivingEntity {
             return false;
         }
 
-        hits++;
+        hitsLeft--;
         this.cacheHitDirection(source);
         this.getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         this.markHurt();
@@ -90,7 +83,7 @@ public class PinataEntity extends LivingEntity {
             player = (Player) source.getEntity();
         }
 
-        if (hits >= HITS_TO_BREAK) {
+        if (hitsLeft <= 0) {
             this.breakOpen(level, player);
             return true;
         }
@@ -123,6 +116,14 @@ public class PinataEntity extends LivingEntity {
         return this.dropData;
     }
 
+    public void setHitsLeft(int hitsLeft) {
+        this.hitsLeft = hitsLeft;
+    }
+
+    public int getHitsLeft() {
+        return this.hitsLeft;
+    }
+
     public int getHitCounter() {
         return getEntityData().get(DATA_HIT_COUNTER);
     }
@@ -144,7 +145,7 @@ public class PinataEntity extends LivingEntity {
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putString("skin", getEntityData().get(DATA_SKIN));
-        output.putInt("hits", hits);
+        output.putInt("hits_left", hitsLeft);
         output.store("drop_data", PinataDropData.CODEC, dropData);
     }
 
@@ -157,7 +158,7 @@ public class PinataEntity extends LivingEntity {
         getEntityData().set(DATA_SKIN, skinId);
         skin = ModPinataSkins.getSkin(Identifier.parse(skinId));
 
-        hits = input.getIntOr("hits", 0);
+        hitsLeft = input.getIntOr("hits_left", 10);
 
         dropData = input.read("drop_data", PinataDropData.CODEC).orElse(PinataDropData.EMPTY);
     }
@@ -190,17 +191,5 @@ public class PinataEntity extends LivingEntity {
 
         getEntityData().set(DATA_HIT_DIR_X, (float) (x / length));
         getEntityData().set(DATA_HIT_DIR_Z, (float) (z / length));
-    }
-
-    private void dropReward(ServerLevel level, ItemStack stack) {
-        var item = spawnAtLocation(level, stack);
-
-        if (item != null) {
-            item.setDeltaMovement(
-                    (random.nextDouble() - 0.5D) * 0.35D,
-                    0.25D + random.nextDouble() * 0.25D,
-                    (random.nextDouble() - 0.5D) * 0.35D
-            );
-        }
     }
 }

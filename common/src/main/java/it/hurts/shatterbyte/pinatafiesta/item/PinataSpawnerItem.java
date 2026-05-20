@@ -49,8 +49,10 @@ public class PinataSpawnerItem extends Item {
 
         pinata.setSkin(skin);
         pinata.setDropData(stack.get(ModComponents.DROP_DATA_COMPONENT_TYPE));
+        pinata.setHitsLeft(stack.get(ModComponents.PINATA_HITS_COMPONENT_TYPE));
 
         player.level().addFreshEntity(pinata);
+        pinata.getDropData().executeSpawnActions(serverLevel, pinata, player);
 
         serverLevel.playSound(null, pinata.getX(), pinata.getY(), pinata.getZ(), ModContent.pinataSpawnSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
 
