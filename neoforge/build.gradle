@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation "it.hurts.shatterbyte.byteapi:byte-neoforge:${project.byte_version}"
+    implementation "it.hurts.shatterbyte.byteapi:byteapi-neoforge:${project.byteapi_version}"
 }
 
 neoForge {

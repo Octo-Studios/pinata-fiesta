@@ -16,7 +16,7 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
-    implementation "it.hurts.shatterbyte.byteapi:byte-common:${project.byte_version}"
+    implementation "it.hurts.shatterbyte.byteapi:byteapi-common:${project.byteapi_version}"
 }
 
 configurations {
