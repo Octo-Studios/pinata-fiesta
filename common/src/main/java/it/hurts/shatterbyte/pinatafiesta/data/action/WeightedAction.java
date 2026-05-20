@@ -11,6 +11,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public record WeightedAction(List<Entry> entries) implements PinataAction {
@@ -18,6 +20,10 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
             Entry.CODEC.listOf()
                     .fieldOf("entries")
                     .xmap(WeightedAction::new, WeightedAction::entries);
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     @Override
     public PinataActionType<?> getType() {
@@ -54,9 +60,36 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
         public static final Codec<Entry> CODEC =
                 RecordCodecBuilder.create(instance ->
                         instance.group(
-                                Codec.INT.fieldOf("weight").forGetter(Entry::weight),
-                                PinataAction.CODEC.fieldOf("action").forGetter(Entry::action)
+                                Codec.INT.fieldOf("weight")
+                                        .forGetter(Entry::weight),
+
+                                Codec.lazyInitialized(() -> PinataAction.CODEC)
+                                        .fieldOf("action")
+                                        .forGetter(Entry::action)
                         ).apply(instance, Entry::new)
                 );
+    }
+
+    public static class Builder {
+        private final List<Entry> entries = new ArrayList<>();
+
+        public Builder add(int weight, PinataAction action) {
+            entries.add(new Entry(weight, action));
+            return this;
+        }
+
+        public Builder add(Entry entry) {
+            entries.add(entry);
+            return this;
+        }
+
+        public Builder addAll(Collection<Entry> entries) {
+            this.entries.addAll(entries);
+            return this;
+        }
+
+        public WeightedAction build() {
+            return new WeightedAction(List.copyOf(entries));
+        }
     }
 }

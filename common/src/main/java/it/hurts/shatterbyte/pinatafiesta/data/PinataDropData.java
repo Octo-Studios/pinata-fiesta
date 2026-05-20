@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public record PinataDropData(
@@ -32,23 +33,11 @@ public record PinataDropData(
                     ).apply(instance, PinataDropData::new)
             );
 
-    public PinataDropData() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    }
+    public static final PinataDropData EMPTY =
+            new PinataDropData(List.of(), List.of(), List.of());
 
-    public PinataDropData addSpawnAction(PinataAction action) {
-        this.spawnActions.add(action);
-        return this;
-    }
-
-    public PinataDropData addHitAction(PinataAction action) {
-        this.hitActions.add(action);
-        return this;
-    }
-
-    public PinataDropData addBreakAction(PinataAction action) {
-        this.breakActions.add(action);
-        return this;
+    public static Builder builder() {
+        return new Builder();
     }
 
     public void executeSpawnActions(ServerLevel level, PinataEntity pinata, @Nullable Player player) {
@@ -71,6 +60,50 @@ public record PinataDropData(
     ) {
         for (PinataAction action : actions) {
             action.execute(level, pinata, player);
+        }
+    }
+
+    public static class Builder {
+        private final List<PinataAction> spawnActions = new ArrayList<>();
+        private final List<PinataAction> hitActions = new ArrayList<>();
+        private final List<PinataAction> breakActions = new ArrayList<>();
+
+        public Builder addSpawnAction(PinataAction action) {
+            spawnActions.add(action);
+            return this;
+        }
+
+        public Builder addHitAction(PinataAction action) {
+            hitActions.add(action);
+            return this;
+        }
+
+        public Builder addBreakAction(PinataAction action) {
+            breakActions.add(action);
+            return this;
+        }
+
+        public Builder addSpawnActions(Collection<? extends PinataAction> actions) {
+            spawnActions.addAll(actions);
+            return this;
+        }
+
+        public Builder addHitActions(Collection<? extends PinataAction> actions) {
+            hitActions.addAll(actions);
+            return this;
+        }
+
+        public Builder addBreakActions(Collection<? extends PinataAction> actions) {
+            breakActions.addAll(actions);
+            return this;
+        }
+
+        public PinataDropData build() {
+            return new PinataDropData(
+                    List.copyOf(spawnActions),
+                    List.copyOf(hitActions),
+                    List.copyOf(breakActions)
+            );
         }
     }
 }

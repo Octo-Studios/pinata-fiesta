@@ -15,6 +15,6 @@ public interface PinataAction {
     Codec<PinataAction> CODEC = PinataActionTypes.TYPE_CODEC.dispatch(
             "type",
             PinataAction::getType,
-            type -> (MapCodec<? extends PinataAction>) type.codec()
+            PinataActionType::codec
     );
 }
