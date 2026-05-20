@@ -83,12 +83,12 @@ public class PinataEntity extends LivingEntity {
             player = (Player) source.getEntity();
         }
 
+        dropData.executeHitActions(level, this, player);
         if (hitsLeft <= 0) {
             this.breakOpen(level, player);
             return true;
         }
 
-        dropData.executeHitActions(level, this, player);
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataHurtSound(), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
     }

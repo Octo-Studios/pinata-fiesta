@@ -55,7 +55,7 @@ public class GivePinataCommand {
 
         ItemStack stack = ModContent.pinataSpawner().getDefaultInstance();
 
-        stack.set(ModComponents.PINATA_HITS_COMPONENT_TYPE, template.pinataHits());
+        stack.set(ModComponents.PINATA_HITS_COMPONENT_TYPE, template.hits());
         stack.set(ModComponents.SKINS_COMPONENT_TYPE, template.skins());
         stack.set(ModComponents.DROP_DATA_COMPONENT_TYPE, template.dropData());
         player.getInventory().add(stack);

@@ -8,15 +8,15 @@ import net.minecraft.resources.Identifier;
 import java.util.List;
 
 public record PinataTemplate(
-        int pinataHits,
+        int hits,
         List<Identifier> skins,
         PinataDropData dropData
 ) {
     public static final Codec<PinataTemplate> CODEC =
             RecordCodecBuilder.create(instance ->
                     instance.group(
-                            Codec.INT.optionalFieldOf("pinata_hits", 10)
-                                    .forGetter(PinataTemplate::pinataHits),
+                            Codec.INT.optionalFieldOf("hits", 10)
+                                    .forGetter(PinataTemplate::hits),
 
                             Identifier.CODEC.listOf()
                                     .optionalFieldOf("skins", List.of())
