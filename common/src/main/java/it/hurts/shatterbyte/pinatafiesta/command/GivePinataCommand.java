@@ -7,6 +7,7 @@ import it.hurts.shatterbyte.pinatafiesta.content.ModComponents;
 import it.hurts.shatterbyte.pinatafiesta.content.ModContent;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataTemplate;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataTemplateManager;
+import it.hurts.shatterbyte.pinatafiesta.item.PinataSpawnerItem;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.IdentifierArgument;
@@ -50,15 +51,7 @@ public class GivePinataCommand {
         }
 
         ServerPlayer player = source.getPlayerOrException();
-
-        PinataTemplate template = PinataTemplateManager.INSTANCE.get(templateId);
-
-        ItemStack stack = ModContent.pinataSpawner().getDefaultInstance();
-
-        stack.set(ModComponents.PINATA_HITS_COMPONENT_TYPE, template.hits());
-        stack.set(ModComponents.SKINS_COMPONENT_TYPE, template.skins());
-        stack.set(ModComponents.DROP_DATA_COMPONENT_TYPE, template.dropData());
-        player.getInventory().add(stack);
+        player.getInventory().add(PinataSpawnerItem.fromTemplate(templateId));
         source.sendSuccess(
                 () -> Component.literal(
                         "Given pinata template: " + templateId
