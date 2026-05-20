@@ -29,7 +29,7 @@ public record RunCommandAction(String command) implements PinataAction {
                 .withPermission(PermissionSet.ALL_PERMISSIONS);
 
         if (player != null) {
-            source = source.withEntity(player).withPosition(player.position());
+            source = source.withEntity(player).withPosition(player.position()).withSuppressedOutput();
         }
 
         level.getServer()
