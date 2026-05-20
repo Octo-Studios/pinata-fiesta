@@ -116,5 +116,7 @@ public final class ModContent {
         Supplier<SoundEvent> registerSound(String name);
 
         <T extends SimpleParticleType> Supplier<T> registerParticle(String name, Supplier<T> particleType);
+
+
     }
 }

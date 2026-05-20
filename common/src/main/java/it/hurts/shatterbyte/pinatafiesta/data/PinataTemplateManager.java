@@ -15,22 +15,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class PinataTemplateManager extends SimpleJsonResourceReloadListener<PinataDropData> {
-    public static final PinataTemplateManager INSTANCE =
-            new PinataTemplateManager();
+public class PinataTemplateManager extends SimpleJsonResourceReloadListener<PinataTemplate> {
+    public static final PinataTemplateManager INSTANCE = new PinataTemplateManager();
+    public static final Identifier ID = Constants.id("pinata_templates");
 
-    private Map<Identifier, PinataDropData> templates = Map.of();
+    private Map<Identifier, PinataTemplate> templates = Map.of();
 
     public PinataTemplateManager() {
         super(
-                PinataDropData.CODEC,
+                PinataTemplate.CODEC,
                 FileToIdConverter.json("pinata_templates")
         );
     }
 
     @Override
     protected void apply(
-            Map<Identifier, PinataDropData> object,
+            Map<Identifier, PinataTemplate> object,
             ResourceManager resourceManager,
             ProfilerFiller profilerFiller
     ) {
@@ -42,8 +42,8 @@ public class PinataTemplateManager extends SimpleJsonResourceReloadListener<Pina
         );
     }
 
-    public PinataDropData get(Identifier id) {
-        return templates.getOrDefault(id, PinataDropData.EMPTY);
+    public PinataTemplate get(Identifier id) {
+        return templates.getOrDefault(id, PinataTemplate.DEFAULT);
     }
 
     public boolean contains(Identifier id) {

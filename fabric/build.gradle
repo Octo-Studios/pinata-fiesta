@@ -8,6 +8,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation "it.hurts.shatterbyte.byteapi:byteapi-fabric:${project.byteapi_version}"
+    //api("dev.latvian.mods:kubejs-fabric:${project.kubejs_version}")
 }
 
 loom {

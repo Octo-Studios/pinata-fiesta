@@ -5,6 +5,8 @@ plugins {
 
 dependencies {
     implementation "it.hurts.shatterbyte.byteapi:byteapi-neoforge:${project.byteapi_version}"
+    //api("dev.latvian.mods:kubejs-neoforge:${project.kubejs_version}")
+    //interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:${project.kubejs_version}") // optional
 }
 
 neoForge {
