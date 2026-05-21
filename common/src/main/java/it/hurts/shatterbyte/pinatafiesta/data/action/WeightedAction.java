@@ -13,10 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public record WeightedAction(List<Entry> entries) implements PinataAction {
     public static final MapCodec<WeightedAction> CODEC =
@@ -46,7 +43,7 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
             return tooltips;
         }
 
-        for (Entry entry : entries) {
+        entries.stream().sorted(Comparator.comparingInt((Entry entry) -> entry.weight).reversed()).forEach(entry -> {
             double percentage = (entry.weight * 100d) / totalWeight;
 
             tooltips.add(
@@ -58,7 +55,7 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
                             ).withStyle(ChatFormatting.DARK_GRAY)
                     )
             );
-        }
+        });
 
         return tooltips;
     }

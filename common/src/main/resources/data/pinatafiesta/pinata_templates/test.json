@@ -29,7 +29,7 @@
             "action": {
               "type": "pinatafiesta:drop_item",
               "item": {
-                "count": 1,
+                "count": 2,
                 "id": "minecraft:emerald"
               }
             }
@@ -40,15 +40,28 @@
               "type": "pinatafiesta:drop_item",
               "item": {
                 "count": 1,
-                "id": "minecraft:gold_ingot"
+                "id": "minecraft:nether_star"
               }
+            }
+          },
+          {
+            "weight": 16,
+            "action": {
+              "type": "pinatafiesta:drop_experience",
+              "points": 3
+            }
+          },
+          {
+            "weight": 20,
+            "action": {
+              "type": "pinatafiesta:nothing"
             }
           }
         ]
       },
       {
-        "type": "pinatafiesta:run_command",
-        "command": "experience add @s 2 points"
+        "type": "pinatafiesta:drop_experience",
+        "points": 2
       }
     ],
     "break_actions": [

@@ -3,9 +3,7 @@ package it.hurts.shatterbyte.pinatafiesta.data;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import it.hurts.shatterbyte.pinatafiesta.Constants;
-import it.hurts.shatterbyte.pinatafiesta.data.action.DropItemAction;
-import it.hurts.shatterbyte.pinatafiesta.data.action.RunCommandAction;
-import it.hurts.shatterbyte.pinatafiesta.data.action.WeightedAction;
+import it.hurts.shatterbyte.pinatafiesta.data.action.*;
 import net.minecraft.resources.Identifier;
 
 import java.util.HashMap;
@@ -31,6 +29,18 @@ public class PinataActionTypes {
             register(
                     Constants.id("weighted"),
                     new PinataActionType<>(WeightedAction.CODEC)
+            );
+
+    public static final PinataActionType<DropExperienceAction> DROP_EXPERIENCE =
+            register(
+                    Constants.id("drop_experience"),
+                    new PinataActionType<>(DropExperienceAction.CODEC)
+            );
+
+    public static final PinataActionType<NothingAction> NOTHING =
+            register(
+                    Constants.id("nothing"),
+                    new PinataActionType<>(NothingAction.CODEC)
             );
 
     public static final Codec<PinataActionType<?>> TYPE_CODEC =

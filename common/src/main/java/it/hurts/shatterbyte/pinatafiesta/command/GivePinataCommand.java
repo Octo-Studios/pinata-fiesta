@@ -23,6 +23,7 @@ public class GivePinataCommand {
                     Component.literal("Unknown pinata template: " + id)
             );
 
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("givepinata")
