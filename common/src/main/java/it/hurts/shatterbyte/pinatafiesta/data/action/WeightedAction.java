@@ -7,6 +7,8 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataAction;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionType;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionTypes;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public record WeightedAction(List<Entry> entries) implements PinataAction {
     public static final MapCodec<WeightedAction> CODEC =
@@ -31,13 +34,46 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
     }
 
     @Override
-    public void execute(ServerLevel level, PinataEntity pinata, @Nullable Player player) {
-        int totalWeight = 0;
+    public Component getTooltip() {
+        return Component.translatable("item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards").withColor(0xfff4ae89);
+    }
 
-        for (Entry entry : entries) {
-            totalWeight += entry.weight();
+    public List<Component> getEntryTooltips() {
+        List<Component> tooltips = new ArrayList<>();
+        int totalWeight = this.getTotalWeight();
+
+        if (totalWeight <= 0) {
+            return tooltips;
         }
 
+        for (Entry entry : entries) {
+            double percentage = (entry.weight * 100d) / totalWeight;
+
+            tooltips.add(
+                    Component.literal("• ").withStyle(ChatFormatting.GRAY).append(
+                            Component.translatable(
+                                    "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
+                                    entry.action.getTooltip(),
+                                    String.format(Locale.ROOT, "%.1f%%", percentage)
+                            ).withStyle(ChatFormatting.DARK_GRAY)
+                    )
+            );
+        }
+
+        return tooltips;
+    }
+
+    public int getTotalWeight() {
+        int totalWeight = 0;
+        for (Entry entry : entries) {
+            totalWeight += entry.weight;
+        }
+        return totalWeight;
+    }
+
+    @Override
+    public void execute(ServerLevel level, PinataEntity pinata, @Nullable Player player) {
+        int totalWeight = this.getTotalWeight();
         if (totalWeight <= 0) {
             return;
         }

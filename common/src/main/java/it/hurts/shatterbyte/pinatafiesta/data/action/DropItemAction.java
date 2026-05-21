@@ -5,8 +5,11 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataAction;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionType;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionTypes;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +20,15 @@ public record DropItemAction(ItemStackTemplate item) implements PinataAction {
     @Override
     public PinataActionType<?> getType() {
         return PinataActionTypes.DROP_ITEM;
+    }
+
+    @Override
+    public Component getTooltip() {
+        return Component.translatable(
+                "item.pinatafiesta.pinata_spawner.tooltip.drop_item",
+                item.count(),
+                item.create().getStyledHoverName()
+        ).withColor(0xfff4e489);
     }
 
     @Override

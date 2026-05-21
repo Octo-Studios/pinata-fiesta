@@ -7,17 +7,26 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataTemplate;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataTemplateManager;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.world.item.context.UseOnContext;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class PinataSpawnerItem extends Item {
     public PinataSpawnerItem(Properties properties) {

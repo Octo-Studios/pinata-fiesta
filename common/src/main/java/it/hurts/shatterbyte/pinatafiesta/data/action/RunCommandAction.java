@@ -6,7 +6,9 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataAction;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionType;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionTypes;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +22,14 @@ public record RunCommandAction(String command) implements PinataAction {
     @Override
     public PinataActionType<?> getType() {
         return PinataActionTypes.RUN_COMMAND;
+    }
+
+    @Override
+    public Component getTooltip() {
+        return Component.translatable(
+                "item.pinatafiesta.pinata_spawner.tooltip.run_command",
+                Component.literal(command.startsWith("/") ? command : "/"+command).withColor(0xfff48999).withStyle(ChatFormatting.ITALIC)
+        ).withColor(0xfff4e489);
     }
 
     @Override

@@ -2,11 +2,21 @@
   "entity.pinatafiesta.pinata": "Piñata",
 
   "item.pinatafiesta.pinata_spawner": "Piñata Spawner",
-  
+  "item.pinatafiesta.pinata_spawner.tooltip.spawn_actions": "Spawn Actions",
+  "item.pinatafiesta.pinata_spawner.tooltip.hit_actions": "Hit Actions",
+  "item.pinatafiesta.pinata_spawner.tooltip.break_actions": "Break Actions",
+  "item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards": "Weighted Rewards",
+  "item.pinatafiesta.pinata_spawner.tooltip.drop_item": "Drop %1$sx %2$s",
+  "item.pinatafiesta.pinata_spawner.tooltip.run_command": "Run command: %1$s",
+  "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry": "%1$s (%2$s)",
+  "item.pinatafiesta.pinata_spawner.tooltip.pinata_hits": "Hits: %1$s",
+  "item.pinatafiesta.pinata_spawner.tooltip.possible_skins": "Possible Skins",
+
   "entity.pinatafiesta.pinata.spawn": "Piñata appears",
   "entity.pinatafiesta.pinata.death": "Piñata bursts",
   "entity.pinatafiesta.pinata.hurt": "Piñata gets hit",
 
   "skin.pinatafiesta.sunset": "Sunset",
   "skin.pinatafiesta.aquamarine": "Aquamarine"
+
 }

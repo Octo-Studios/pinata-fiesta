@@ -1,60 +1,60 @@
 {
   "skins": [
-    "pinatafiesta:aquamarine"
+    "pinatafiesta:sunset"
   ],
-  "hits": 5,
+  "hits": 8,
   "drop_data": {
-    "break_actions": [
+    "spawn_actions": [
       {
         "type": "pinatafiesta:run_command",
-        "command": "say im stupid"
+        "command": "say A Wild Piñata appears!"
       }
     ],
     "hit_actions": [
       {
+        "type": "pinatafiesta:weighted",
         "entries": [
           {
             "weight": 10,
             "action": {
+              "type": "pinatafiesta:drop_item",
               "item": {
                 "count": 1,
                 "id": "minecraft:diamond"
-              },
-              "type": "pinatafiesta:drop_item"
+              }
             }
           },
           {
             "weight": 2,
             "action": {
+              "type": "pinatafiesta:drop_item",
               "item": {
                 "count": 1,
                 "id": "minecraft:emerald"
-              },
-              "type": "pinatafiesta:drop_item"
+              }
             }
           },
           {
             "weight": 1,
             "action": {
+              "type": "pinatafiesta:drop_item",
               "item": {
                 "count": 1,
                 "id": "minecraft:gold_ingot"
-              },
-              "type": "pinatafiesta:drop_item"
+              }
             }
           }
-        ],
-        "type": "pinatafiesta:weighted"
+        ]
       },
       {
         "type": "pinatafiesta:run_command",
         "command": "experience add @s 2 points"
       }
     ],
-    "spawn_actions": [
+    "break_actions": [
       {
         "type": "pinatafiesta:run_command",
-        "command": "say A Wild Pinata appears!"
+        "command": "say yippie!!!"
       }
     ]
   }

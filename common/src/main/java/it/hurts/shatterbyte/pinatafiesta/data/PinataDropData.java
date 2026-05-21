@@ -2,20 +2,28 @@ package it.hurts.shatterbyte.pinatafiesta.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.hurts.shatterbyte.pinatafiesta.data.action.WeightedAction;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 public record PinataDropData(
         List<PinataAction> spawnActions,
         List<PinataAction> hitActions,
         List<PinataAction> breakActions
-) {
+) implements TooltipProvider {
     public static final Codec<PinataDropData> CODEC =
             RecordCodecBuilder.create(instance ->
                     instance.group(
@@ -60,6 +68,59 @@ public record PinataDropData(
     ) {
         for (PinataAction action : actions) {
             action.execute(level, pinata, player);
+        }
+    }
+
+    @Override
+    public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+        PinataDropData.appendActionSection(
+                consumer,
+                "Spawn Actions",
+                spawnActions
+        );
+
+        PinataDropData.appendActionSection(
+                consumer,
+                "Hit Actions",
+                hitActions
+        );
+
+        PinataDropData.appendActionSection(
+                consumer,
+                "Break Actions",
+                breakActions
+        );
+    }
+
+    private static void appendActionSection(
+            Consumer<Component> consumer,
+            String title,
+            List<PinataAction> actions
+    ) {
+        if (actions.isEmpty()) {
+            return;
+        }
+
+        consumer.accept(Component.empty());
+
+        consumer.accept(
+                Component.literal(title)
+        );
+
+        for (PinataAction action : actions) {
+            consumer.accept(
+                    Component.literal("• ")
+                            .append(action.getTooltip())
+            );
+
+            if (action instanceof WeightedAction weighted) {
+                for (Component component : weighted.getEntryTooltips()) {
+                    consumer.accept(
+                            Component.literal("  ")
+                                    .append(component)
+                    );
+                }
+            }
         }
     }
 
