@@ -23,7 +23,7 @@ public record NothingAction() implements PinataAction {
     @Override
     public Component getTooltip() {
         return Component.translatable(
-                "item.pinatafiesta.pinata_spawner.tooltip.drop_experience"
+                "item.pinatafiesta.pinata_spawner.tooltip.nothing"
         ).withStyle(ChatFormatting.DARK_GRAY);
     }
 
