@@ -36,8 +36,7 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
     public List<Component> getTooltips() {
         List<Component> tooltips = new ArrayList<>();
 
-        tooltips.add(
-                Component.translatable(
+        tooltips.add(Component.translatable(
                         "item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards"
                 ).withColor(0xfff4ae89)
         );
@@ -53,13 +52,23 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
                 .forEach(entry -> {
                     double percentage = (entry.weight * 100d) / totalWeight;
 
-                    List<MutableComponent> entryTooltips = entry.action.getTooltips().stream().map(tooltip ->
-                                            Component.translatable(
-                                                    "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
-                                                    tooltip,
-                                                    String.format(Locale.ROOT, "%.1f%%", percentage)
-                                            ).withStyle(ChatFormatting.DARK_GRAY)
-                                    ).toList();
+                    List<Component> originalTooltips = entry.action.getTooltips();
+                    List<MutableComponent> entryTooltips = new ArrayList<>();
+
+                    for (int i = 0; i < originalTooltips.size(); i++) {
+                        Component tooltip = originalTooltips.get(i);
+
+                        if (i == 0) {
+                            entryTooltips.add(Component.translatable(
+                                            "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
+                                            tooltip,
+                                            String.format(Locale.ROOT, "%.1f%%", percentage)
+                                    ).withStyle(ChatFormatting.DARK_GRAY)
+                            );
+                        } else {
+                            entryTooltips.add(tooltip.copy());
+                        }
+                    }
 
                     TooltipRenderUtil.appendNestedTooltips(
                             tooltips,
