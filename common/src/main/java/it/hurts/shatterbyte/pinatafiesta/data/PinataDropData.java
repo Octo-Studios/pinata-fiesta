@@ -118,7 +118,7 @@ public record PinataDropData(
                     consumer.accept(Component.literal("┗ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
                 } else {
                     if (!tooltip.getString().startsWith("•")) {
-                        consumer.accept(Component.literal("| ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                        consumer.accept(Component.literal("| ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
                         continue;
                     }
                     consumer.accept(Component.literal("┠ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
