@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.hurts.shatterbyte.pinatafiesta.data.action.WeightedAction;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import it.hurts.shatterbyte.pinatafiesta.util.TooltipRenderUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
@@ -108,22 +109,10 @@ public record PinataDropData(
         );
 
         for (PinataAction action : actions) {
-            List<Component> tooltips = action.getTooltips();
-
-            for (int i = 0; i < tooltips.size(); i++) {
-                Component tooltip = tooltips.get(i);
-                if (i == 0) {
-                    consumer.accept(Component.literal("• ").append(tooltip));
-                } else if (i == tooltips.size()-1) {
-                    consumer.accept(Component.literal("┗ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
-                } else {
-                    if (!tooltip.getString().startsWith("•")) {
-                        consumer.accept(Component.literal("| ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
-                        continue;
-                    }
-                    consumer.accept(Component.literal("┠ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
-                }
-            }
+            TooltipRenderUtil.appendNestedTooltips(
+                    consumer,
+                    action.getTooltips()
+            );
         }
     }
 

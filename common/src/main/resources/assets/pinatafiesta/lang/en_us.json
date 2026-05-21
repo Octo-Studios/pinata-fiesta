@@ -6,6 +6,7 @@
   "item.pinatafiesta.pinata_spawner.tooltip.hit_actions": "Hit Actions",
   "item.pinatafiesta.pinata_spawner.tooltip.break_actions": "Break Actions",
   "item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards": "Weighted Rewards",
+  "item.pinatafiesta.pinata_spawner.tooltip.multiple": "Multiple Rewards",
   "item.pinatafiesta.pinata_spawner.tooltip.drop_item": "Drop %1$sx %2$s",
   "item.pinatafiesta.pinata_spawner.tooltip.drop_experience": "Drop %1$s XP",
   "item.pinatafiesta.pinata_spawner.tooltip.run_command": "Run command: %1$s",

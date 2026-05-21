@@ -7,8 +7,10 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataAction;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionType;
 import it.hurts.shatterbyte.pinatafiesta.data.PinataActionTypes;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
+import it.hurts.shatterbyte.pinatafiesta.util.TooltipRenderUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +35,12 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
     @Override
     public List<Component> getTooltips() {
         List<Component> tooltips = new ArrayList<>();
-        tooltips.add(Component.translatable("item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards").withColor(0xfff4ae89));
+
+        tooltips.add(
+                Component.translatable(
+                        "item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards"
+                ).withColor(0xfff4ae89)
+        );
 
         int totalWeight = this.getTotalWeight();
 
@@ -41,29 +48,24 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
             return tooltips;
         }
 
-        entries.stream().sorted(Comparator.comparingInt((Entry entry) -> entry.weight).reversed()).forEach(entry -> {
-            double percentage = (entry.weight * 100d) / totalWeight;
+        entries.stream()
+                .sorted(Comparator.comparingInt((Entry entry) -> entry.weight).reversed())
+                .forEach(entry -> {
+                    double percentage = (entry.weight * 100d) / totalWeight;
 
-            List<Component> entryTooltips = entry.action.getTooltips();
+                    List<MutableComponent> entryTooltips = entry.action.getTooltips().stream().map(tooltip ->
+                                            Component.translatable(
+                                                    "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
+                                                    tooltip,
+                                                    String.format(Locale.ROOT, "%.1f%%", percentage)
+                                            ).withStyle(ChatFormatting.DARK_GRAY)
+                                    ).toList();
 
-            for (int i = 0; i < entryTooltips.size(); i++) {
-                Component tooltip = entryTooltips.get(i);
-
-                Component line = Component.literal("• ").withStyle(ChatFormatting.GRAY).append(Component.translatable(
-                        "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
-                        tooltip,
-                        String.format(Locale.ROOT, "%.1f%%", percentage)
-                ).withStyle(ChatFormatting.DARK_GRAY));
-
-                if (i == 0) {
-                    tooltips.add(line);
-                } else if (i == entryTooltips.size()-1) {
-                    tooltips.add(Component.literal("┗ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
-                } else {
-                    tooltips.add(Component.literal("┠ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
-                }
-            }
-        });
+                    TooltipRenderUtil.appendNestedTooltips(
+                            tooltips,
+                            entryTooltips
+                    );
+                });
 
         return tooltips;
     }

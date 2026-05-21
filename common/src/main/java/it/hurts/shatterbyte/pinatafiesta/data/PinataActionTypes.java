@@ -37,6 +37,12 @@ public class PinataActionTypes {
                     new PinataActionType<>(DropExperienceAction.CODEC)
             );
 
+    public static final PinataActionType<MultipleAction> MULTIPLE =
+            register(
+                    Constants.id("multiple"),
+                    new PinataActionType<>(MultipleAction.CODEC)
+            );
+
     public static final PinataActionType<NothingAction> NOTHING =
             register(
                     Constants.id("nothing"),

@@ -58,52 +58,17 @@
             }
           },
           {
-            "weight": 3,
+            "weight": 7,
             "action": {
-              "type": "pinatafiesta:weighted",
-              "entries": [
+              "type": "pinatafiesta:multiple",
+              "actions": [
                 {
-                  "weight": 10,
-                  "action": {
-                    "type": "pinatafiesta:drop_item",
-                    "item": {
-                      "count": 1,
-                      "id": "minecraft:diamond"
-                    }
-                  }
+                  "type": "pinatafiesta:drop_experience",
+                  "points": 8
                 },
                 {
-                  "weight": 2,
-                  "action": {
-                    "type": "pinatafiesta:drop_item",
-                    "item": {
-                      "count": 2,
-                      "id": "minecraft:emerald"
-                    }
-                  }
-                },
-                {
-                  "weight": 1,
-                  "action": {
-                    "type": "pinatafiesta:drop_item",
-                    "item": {
-                      "count": 1,
-                      "id": "minecraft:nether_star"
-                    }
-                  }
-                },
-                {
-                  "weight": 16,
-                  "action": {
-                    "type": "pinatafiesta:drop_experience",
-                    "points": 3
-                  }
-                },
-                {
-                  "weight": 20,
-                  "action": {
-                    "type": "pinatafiesta:nothing"
-                  }
+                  "type": "pinatafiesta:run_command",
+                  "command": "say woah..."
                 }
               ]
             }
