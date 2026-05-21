@@ -12,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public record DropExperienceAction(int points) implements PinataAction {
     public static final MapCodec<DropExperienceAction> CODEC = Codec.INT.fieldOf("points")
             .xmap(DropExperienceAction::new, DropExperienceAction::points);
@@ -22,11 +24,11 @@ public record DropExperienceAction(int points) implements PinataAction {
     }
 
     @Override
-    public Component getTooltip() {
-        return Component.translatable(
+    public List<Component> getTooltips() {
+        return List.of(Component.translatable(
                 "item.pinatafiesta.pinata_spawner.tooltip.drop_experience",
                 points
-        ).withColor(0xff8af489);
+        ).withColor(0xff8af489));
     }
 
     @Override

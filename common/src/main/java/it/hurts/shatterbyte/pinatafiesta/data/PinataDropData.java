@@ -94,7 +94,7 @@ public record PinataDropData(
 
     private static void appendActionSection(
             Consumer<Component> consumer,
-            String title,
+            String translationKey,
             List<PinataAction> actions
     ) {
         if (actions.isEmpty()) {
@@ -104,22 +104,15 @@ public record PinataDropData(
         consumer.accept(Component.empty());
 
         consumer.accept(
-                Component.literal(title)
+                Component.translatable(translationKey)
         );
 
         for (PinataAction action : actions) {
-            consumer.accept(
-                    Component.literal("• ")
-                            .append(action.getTooltip())
-            );
+            List<Component> tooltips = action.getTooltips();
 
-            if (action instanceof WeightedAction weighted) {
-                for (Component component : weighted.getEntryTooltips()) {
-                    consumer.accept(
-                            Component.literal("  ")
-                                    .append(component)
-                    );
-                }
+            for (int i = 0; i < tooltips.size(); i++) {
+                Component tooltip = tooltips.get(i);
+                consumer.accept(Component.literal(i == 0 ? "• " : "  ").append(tooltip));
             }
         }
     }

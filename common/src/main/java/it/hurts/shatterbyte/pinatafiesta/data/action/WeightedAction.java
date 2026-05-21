@@ -31,12 +31,10 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
     }
 
     @Override
-    public Component getTooltip() {
-        return Component.translatable("item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards").withColor(0xfff4ae89);
-    }
-
-    public List<Component> getEntryTooltips() {
+    public List<Component> getTooltips() {
         List<Component> tooltips = new ArrayList<>();
+        tooltips.add(Component.translatable("item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards").withColor(0xfff4ae89));
+
         int totalWeight = this.getTotalWeight();
 
         if (totalWeight <= 0) {
@@ -46,15 +44,19 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
         entries.stream().sorted(Comparator.comparingInt((Entry entry) -> entry.weight).reversed()).forEach(entry -> {
             double percentage = (entry.weight * 100d) / totalWeight;
 
-            tooltips.add(
-                    Component.literal("• ").withStyle(ChatFormatting.GRAY).append(
-                            Component.translatable(
-                                    "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
-                                    entry.action.getTooltip(),
-                                    String.format(Locale.ROOT, "%.1f%%", percentage)
-                            ).withStyle(ChatFormatting.DARK_GRAY)
-                    )
-            );
+            List<Component> entryTooltips = entry.action.getTooltips();
+
+            for (int i = 0; i < entryTooltips.size(); i++) {
+                Component tooltip = entryTooltips.get(i);
+
+                Component line = Component.literal("• ").withStyle(ChatFormatting.GRAY).append(Component.translatable(
+                        "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry",
+                        tooltip,
+                        String.format(Locale.ROOT, "%.1f%%", percentage)
+                ).withStyle(ChatFormatting.DARK_GRAY));
+
+                tooltips.add(i == 0 ? line : Component.literal("  ").append(tooltip));
+            }
         });
 
         return tooltips;

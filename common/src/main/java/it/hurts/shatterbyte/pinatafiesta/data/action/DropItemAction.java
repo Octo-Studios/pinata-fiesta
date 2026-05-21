@@ -13,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public record DropItemAction(ItemStackTemplate item) implements PinataAction {
     public static final MapCodec<DropItemAction> CODEC = ItemStackTemplate.CODEC.fieldOf("item")
             .xmap(DropItemAction::new, DropItemAction::item);
@@ -23,12 +25,12 @@ public record DropItemAction(ItemStackTemplate item) implements PinataAction {
     }
 
     @Override
-    public Component getTooltip() {
-        return Component.translatable(
+    public List<Component> getTooltips() {
+        return List.of(Component.translatable(
                 "item.pinatafiesta.pinata_spawner.tooltip.drop_item",
                 item.count(),
                 item.create().getStyledHoverName()
-        ).withColor(0xfff4e489);
+        ).withColor(0xfff4e489));
     }
 
     @Override

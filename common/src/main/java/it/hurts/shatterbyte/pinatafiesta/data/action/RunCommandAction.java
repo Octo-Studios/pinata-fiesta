@@ -14,6 +14,8 @@ import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public record RunCommandAction(String command) implements PinataAction {
     public static final MapCodec<RunCommandAction> CODEC =
             Codec.STRING.fieldOf("command")
@@ -25,11 +27,11 @@ public record RunCommandAction(String command) implements PinataAction {
     }
 
     @Override
-    public Component getTooltip() {
-        return Component.translatable(
+    public List<Component> getTooltips() {
+        return List.of(Component.translatable(
                 "item.pinatafiesta.pinata_spawner.tooltip.run_command",
                 Component.literal(command.startsWith("/") ? command : "/"+command).withColor(0xfff48999).withStyle(ChatFormatting.ITALIC)
-        ).withColor(0xfff4e489);
+        ).withColor(0xfff4e489));
     }
 
     @Override

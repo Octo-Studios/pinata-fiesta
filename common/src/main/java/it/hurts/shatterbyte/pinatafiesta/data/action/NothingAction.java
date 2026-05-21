@@ -12,6 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public record NothingAction() implements PinataAction {
     public static final MapCodec<NothingAction> CODEC = MapCodec.unit(new NothingAction());
 
@@ -21,10 +23,10 @@ public record NothingAction() implements PinataAction {
     }
 
     @Override
-    public Component getTooltip() {
-        return Component.translatable(
+    public List<Component> getTooltips() {
+        return List.of(Component.translatable(
                 "item.pinatafiesta.pinata_spawner.tooltip.nothing"
-        ).withStyle(ChatFormatting.DARK_GRAY);
+        ).withStyle(ChatFormatting.DARK_GRAY));
     }
 
     @Override
