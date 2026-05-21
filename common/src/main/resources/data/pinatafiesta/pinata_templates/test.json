@@ -56,6 +56,57 @@
             "action": {
               "type": "pinatafiesta:nothing"
             }
+          },
+          {
+            "weight": 3,
+            "action": {
+              "type": "pinatafiesta:weighted",
+              "entries": [
+                {
+                  "weight": 10,
+                  "action": {
+                    "type": "pinatafiesta:drop_item",
+                    "item": {
+                      "count": 1,
+                      "id": "minecraft:diamond"
+                    }
+                  }
+                },
+                {
+                  "weight": 2,
+                  "action": {
+                    "type": "pinatafiesta:drop_item",
+                    "item": {
+                      "count": 2,
+                      "id": "minecraft:emerald"
+                    }
+                  }
+                },
+                {
+                  "weight": 1,
+                  "action": {
+                    "type": "pinatafiesta:drop_item",
+                    "item": {
+                      "count": 1,
+                      "id": "minecraft:nether_star"
+                    }
+                  }
+                },
+                {
+                  "weight": 16,
+                  "action": {
+                    "type": "pinatafiesta:drop_experience",
+                    "points": 3
+                  }
+                },
+                {
+                  "weight": 20,
+                  "action": {
+                    "type": "pinatafiesta:nothing"
+                  }
+                }
+              ]
+            }
           }
         ]
       },

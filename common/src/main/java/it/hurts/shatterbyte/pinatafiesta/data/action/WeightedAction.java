@@ -55,7 +55,13 @@ public record WeightedAction(List<Entry> entries) implements PinataAction {
                         String.format(Locale.ROOT, "%.1f%%", percentage)
                 ).withStyle(ChatFormatting.DARK_GRAY));
 
-                tooltips.add(i == 0 ? line : Component.literal("  ").append(tooltip));
+                if (i == 0) {
+                    tooltips.add(line);
+                } else if (i == entryTooltips.size()-1) {
+                    tooltips.add(Component.literal("┗ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                } else {
+                    tooltips.add(Component.literal("┠ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                }
             }
         });
 

@@ -112,7 +112,17 @@ public record PinataDropData(
 
             for (int i = 0; i < tooltips.size(); i++) {
                 Component tooltip = tooltips.get(i);
-                consumer.accept(Component.literal(i == 0 ? "• " : "  ").append(tooltip));
+                if (i == 0) {
+                    consumer.accept(Component.literal("• ").append(tooltip));
+                } else if (i == tooltips.size()-1) {
+                    consumer.accept(Component.literal("┗ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                } else {
+                    if (!tooltip.getString().startsWith("•")) {
+                        consumer.accept(Component.literal("| ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                        continue;
+                    }
+                    consumer.accept(Component.literal("┠ ").withStyle(ChatFormatting.DARK_GRAY).append(tooltip));
+                }
             }
         }
     }
