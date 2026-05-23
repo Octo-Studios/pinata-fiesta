@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -35,6 +36,6 @@ public record DropItemAction(ItemStackTemplate item) implements PinataAction {
 
     @Override
     public void execute(ServerLevel level, PinataEntity pinata, @Nullable Player player) {
-        pinata.spawnAtLocation(level, item.create());
+        pinata.spawnAtLocation(level, item.create(), new Vec3(0, pinata.getBbHeight()*0.6f, 0));
     }
 }

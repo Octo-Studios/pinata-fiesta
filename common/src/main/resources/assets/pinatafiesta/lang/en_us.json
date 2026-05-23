@@ -2,9 +2,9 @@
   "entity.pinatafiesta.pinata": "Piñata",
 
   "item.pinatafiesta.pinata_spawner": "Piñata Spawner",
-  "item.pinatafiesta.pinata_spawner.tooltip.spawn_actions": "Spawn Actions",
-  "item.pinatafiesta.pinata_spawner.tooltip.hit_actions": "Hit Actions",
-  "item.pinatafiesta.pinata_spawner.tooltip.break_actions": "Break Actions",
+  "item.pinatafiesta.pinata_spawner.tooltip.spawn_actions": "Spawn Actions:",
+  "item.pinatafiesta.pinata_spawner.tooltip.hit_actions": "Hit Actions:",
+  "item.pinatafiesta.pinata_spawner.tooltip.break_actions": "Break Actions:",
   "item.pinatafiesta.pinata_spawner.tooltip.weighted_rewards": "Weighted Rewards",
   "item.pinatafiesta.pinata_spawner.tooltip.multiple": "Multiple Rewards",
   "item.pinatafiesta.pinata_spawner.tooltip.drop_item": "Drop %1$sx %2$s",

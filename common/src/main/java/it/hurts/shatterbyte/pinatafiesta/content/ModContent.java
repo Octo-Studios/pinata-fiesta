@@ -32,6 +32,8 @@ public final class ModContent {
     private static Supplier<SimpleParticleType> sunsetPaper;
     private static Supplier<SimpleParticleType> aquamarineConfetti;
     private static Supplier<SimpleParticleType> aquamarinePaper;
+    private static Supplier<SimpleParticleType> candyFlossConfetti;
+    private static Supplier<SimpleParticleType> candyFlossPaper;
     private static boolean registered;
 
     private ModContent() {
@@ -68,6 +70,8 @@ public final class ModContent {
         sunsetPaper = registrar.registerParticle("sunset_paper", () -> new SimpleParticleType(false) {});
         aquamarineConfetti = registrar.registerParticle("aquamarine_confetti", () -> new SimpleParticleType(false) {});
         aquamarinePaper = registrar.registerParticle("aquamarine_paper", () -> new SimpleParticleType(false) {});
+        candyFlossConfetti = registrar.registerParticle("candy_floss_confetti", () -> new SimpleParticleType(false) {});
+        candyFlossPaper = registrar.registerParticle("candy_floss_paper", () -> new SimpleParticleType(false) {});
 
         registered = true;
     }
@@ -105,6 +109,14 @@ public final class ModContent {
     }
 
     public static SimpleParticleType aquamarinePaper() {
+        return aquamarinePaper.get();
+    }
+
+    public static SimpleParticleType candyFlossConfetti() {
+        return aquamarineConfetti.get();
+    }
+
+    public static SimpleParticleType candyFlossPaper() {
         return aquamarinePaper.get();
     }
 

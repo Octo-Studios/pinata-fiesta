@@ -1,6 +1,6 @@
 {
   "skins": [
-    "pinatafiesta:sunset"
+    "pinatafiesta:candy_floss"
   ],
   "hits": 8,
   "drop_data": {
@@ -45,13 +45,6 @@
             }
           },
           {
-            "weight": 16,
-            "action": {
-              "type": "pinatafiesta:drop_experience",
-              "points": 3
-            }
-          },
-          {
             "weight": 20,
             "action": {
               "type": "pinatafiesta:nothing"
@@ -64,7 +57,7 @@
               "actions": [
                 {
                   "type": "pinatafiesta:drop_experience",
-                  "points": 8
+                  "points": 10
                 },
                 {
                   "type": "pinatafiesta:run_command",
@@ -74,16 +67,16 @@
             }
           }
         ]
-      },
-      {
-        "type": "pinatafiesta:drop_experience",
-        "points": 2
       }
     ],
     "break_actions": [
       {
         "type": "pinatafiesta:run_command",
         "command": "say yippie!!!"
+      },
+      {
+        "type": "pinatafiesta:drop_experience",
+        "points": 25
       }
     ]
   }

@@ -22,6 +22,12 @@ public class ModPinataSkins {
             ModContent::aquamarinePaper
     );
 
+    public static final Skin CANDY_FLOSS = registerSkin(
+            Constants.id("candy_floss"),
+            ModContent::candyFlossConfetti,
+            ModContent::candyFlossPaper
+    );
+
     public static Skin registerSkin(Identifier skinId, Supplier<SimpleParticleType> confettiParticle, Supplier<SimpleParticleType> paperParticle) {
         Skin skin = new Skin(skinId, confettiParticle, paperParticle);
         SKINS.put(skinId, skin);

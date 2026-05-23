@@ -8,6 +8,7 @@ import it.hurts.shatterbyte.pinatafiesta.data.PinataActionTypes;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
@@ -33,8 +34,6 @@ public record DropExperienceAction(int points) implements PinataAction {
 
     @Override
     public void execute(ServerLevel level, PinataEntity pinata, @Nullable Player player) {
-        if (player != null) {
-            player.giveExperiencePoints(points);
-        }
+        ExperienceOrb.award(level, pinata.position().add(0, pinata.getBbHeight()*0.6f, 0), points);
     }
 }
