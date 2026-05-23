@@ -113,11 +113,11 @@ public final class ModContent {
     }
 
     public static SimpleParticleType candyFlossConfetti() {
-        return aquamarineConfetti.get();
+        return candyFlossConfetti.get();
     }
 
     public static SimpleParticleType candyFlossPaper() {
-        return aquamarinePaper.get();
+        return candyFlossPaper.get();
     }
 
     public interface Registrar {
