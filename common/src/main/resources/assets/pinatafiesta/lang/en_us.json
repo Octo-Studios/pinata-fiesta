@@ -15,6 +15,8 @@
   "item.pinatafiesta.pinata_spawner.tooltip.pinata_hits": "Hits: %1$s",
   "item.pinatafiesta.pinata_spawner.tooltip.possible_skins": "Possible Skins",
 
+  "item.pinatafiesta.candy": "Candy",
+
   "entity.pinatafiesta.pinata.spawn": "Piñata appears",
   "entity.pinatafiesta.pinata.death": "Piñata bursts",
   "entity.pinatafiesta.pinata.hurt": "Piñata gets hit",

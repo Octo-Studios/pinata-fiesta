@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;
@@ -20,9 +21,11 @@ public final class ModContent {
     public static final Identifier PINATA_IDENTIFIER = Constants.id(PINATA_ID);
     public static final ResourceKey<EntityType<?>> PINATA_ENTITY_KEY = ResourceKey.create(Registries.ENTITY_TYPE, PINATA_IDENTIFIER);
     public static final ResourceKey<Item> PINATA_SPAWNER_KEY = ResourceKey.create(Registries.ITEM, Constants.id("pinata_spawner"));
+    public static final ResourceKey<Item> CANDY_KEY = ResourceKey.create(Registries.ITEM, Constants.id("candy"));
 
     private static Supplier<EntityType<PinataEntity>> pinataEntity;
     private static Supplier<Item> pinataSpawner;
+    private static Supplier<Item> candy;
 
     private static Supplier<SoundEvent> pinataSpawnSound;
     private static Supplier<SoundEvent> pinataDeathSound;
@@ -62,6 +65,14 @@ public final class ModContent {
                         .setId(PINATA_SPAWNER_KEY)
                 )
         );
+        candy = registrar.registerItem(
+                "candy",
+                () -> new Item(new Item.Properties()
+                        .food(new FoodProperties(2, 1, true))
+                        .setId(CANDY_KEY)
+                )
+        );
+
         pinataSpawnSound = registrar.registerSound("entity.pinata.spawn");
         pinataDeathSound = registrar.registerSound("entity.pinata.death");
         pinataHurtSound = registrar.registerSound("entity.pinata.hurt");
