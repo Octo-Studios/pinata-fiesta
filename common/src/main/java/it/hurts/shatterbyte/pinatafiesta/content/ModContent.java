@@ -13,6 +13,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Consumables;
 
 import java.util.function.Supplier;
 
@@ -65,10 +67,11 @@ public final class ModContent {
                         .setId(PINATA_SPAWNER_KEY)
                 )
         );
+
         candy = registrar.registerItem(
                 "candy",
                 () -> new Item(new Item.Properties()
-                        .food(new FoodProperties(2, 1, true))
+                        .food(new FoodProperties(2, 1, true), Consumables.defaultFood().consumeSeconds(0.8f).build())
                         .setId(CANDY_KEY)
                 )
         );
