@@ -2,10 +2,9 @@ package it.hurts.shatterbyte.pinatafiesta.client.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import it.hurts.shatterbyte.byteapi.client.animation.Tween;
-import it.hurts.shatterbyte.byteapi.client.animation.easing.EaseType;
-import it.hurts.shatterbyte.byteapi.client.animation.easing.TransitionType;
-import it.hurts.shatterbyte.pinatafiesta.Constants;
+import it.hurts.shatterbyte.shatterlib.client.animation.Tween;
+import it.hurts.shatterbyte.shatterlib.client.animation.easing.EaseType;
+import it.hurts.shatterbyte.shatterlib.client.animation.easing.TransitionType;
 import it.hurts.shatterbyte.pinatafiesta.client.entity.PinataModel;
 import it.hurts.shatterbyte.pinatafiesta.client.entity.PinataRenderState;
 import it.hurts.shatterbyte.pinatafiesta.content.ModEntityModelLayers;

@@ -24,7 +24,7 @@ public class PinataFiesta implements ModInitializer {
         FabricDefaultAttributeRegistry.register(ModContent.pinataEntity(), PinataEntity.createAttributes());
         this.registerReloadListeners();
         CommandRegistrationCallback.EVENT.register((dispatcher, buildContext, selection) -> GivePinataCommand.register(dispatcher));
-        ItemComponentTooltipProviderRegistry.addAfter(DataComponents.CUSTOM_NAME, ModComponents.DROP_DATA_COMPONENT_TYPE);
+        ItemComponentTooltipProviderRegistry.addAfter(DataComponents.DAMAGE, ModComponents.DROP_DATA_COMPONENT_TYPE);
         CommonClass.init();
     }
 
