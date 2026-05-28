@@ -22,5 +22,7 @@ public class PinataFiestaClient implements ClientModInitializer {
         ParticleProviderRegistry.getInstance().register(ModContent.sunsetPaper(), PaperParticle.Provider::new);
         ParticleProviderRegistry.getInstance().register(ModContent.aquamarineConfetti(), ConfettiParticle.Provider::new);
         ParticleProviderRegistry.getInstance().register(ModContent.aquamarinePaper(), PaperParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModContent.candyFlossConfetti(), ConfettiParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(ModContent.candyFlossPaper(), PaperParticle.Provider::new);
     }
 }

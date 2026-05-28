@@ -16,7 +16,9 @@ dependencies {
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
-    implementation "it.hurts.shatterbyte.byteapi:byte-common:${project.byte_version}"
+    implementation "it.hurts.shatterbyte.shatterlib:shatterlib-common:${project.shatterlib_version}"
+    //api("dev.latvian.mods:kubejs-common:${project.kubejs_version}")
+    //interfaceInjectionData("dev.latvian.mods:kubejs-common:${project.kubejs_version}") // optional
 }
 
 configurations {

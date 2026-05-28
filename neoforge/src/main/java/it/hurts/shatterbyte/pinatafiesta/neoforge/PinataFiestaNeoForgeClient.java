@@ -35,5 +35,7 @@ public final class PinataFiestaNeoForgeClient {
         event.registerSpriteSet(ModContent.sunsetPaper(), PaperParticle.Provider::new);
         event.registerSpriteSet(ModContent.aquamarineConfetti(), ConfettiParticle.Provider::new);
         event.registerSpriteSet(ModContent.aquamarinePaper(), PaperParticle.Provider::new);
+        event.registerSpriteSet(ModContent.candyFlossConfetti(), ConfettiParticle.Provider::new);
+        event.registerSpriteSet(ModContent.candyFlossPaper(), PaperParticle.Provider::new);
     }
 }

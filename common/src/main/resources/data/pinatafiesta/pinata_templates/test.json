@@ -1,0 +1,83 @@
+{
+  "skins": [
+    "pinatafiesta:candy_floss"
+  ],
+  "hits": 8,
+  "drop_data": {
+    "spawn_actions": [
+      {
+        "type": "pinatafiesta:run_command",
+        "command": "say A Wild Piñata appears!"
+      }
+    ],
+    "hit_actions": [
+      {
+        "type": "pinatafiesta:weighted",
+        "entries": [
+          {
+            "weight": 10,
+            "action": {
+              "type": "pinatafiesta:drop_item",
+              "item": {
+                "count": 1,
+                "id": "minecraft:diamond"
+              }
+            }
+          },
+          {
+            "weight": 2,
+            "action": {
+              "type": "pinatafiesta:drop_item",
+              "item": {
+                "count": 2,
+                "id": "minecraft:emerald"
+              }
+            }
+          },
+          {
+            "weight": 1,
+            "action": {
+              "type": "pinatafiesta:drop_item",
+              "item": {
+                "count": 1,
+                "id": "minecraft:nether_star"
+              }
+            }
+          },
+          {
+            "weight": 20,
+            "action": {
+              "type": "pinatafiesta:nothing"
+            }
+          },
+          {
+            "weight": 7,
+            "action": {
+              "type": "pinatafiesta:multiple",
+              "actions": [
+                {
+                  "type": "pinatafiesta:drop_experience",
+                  "points": 10
+                },
+                {
+                  "type": "pinatafiesta:run_command",
+                  "command": "say woah..."
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "break_actions": [
+      {
+        "type": "pinatafiesta:run_command",
+        "command": "say yippie!!!"
+      },
+      {
+        "type": "pinatafiesta:drop_experience",
+        "points": 25
+      }
+    ]
+  }
+}
