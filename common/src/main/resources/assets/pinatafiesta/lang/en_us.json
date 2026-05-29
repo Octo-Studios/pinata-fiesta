@@ -14,6 +14,7 @@
   "item.pinatafiesta.pinata_spawner.tooltip.weighted_entry": "%1$s (%2$s)",
   "item.pinatafiesta.pinata_spawner.tooltip.pinata_hits": "Hits: %1$s",
   "item.pinatafiesta.pinata_spawner.tooltip.possible_skins": "Possible Skins",
+  "item.pinatafiesta.pinata_spawner.tooltip.hold_shift": "Hold [Shift] for details",
 
   "item.pinatafiesta.candy": "Candy",
 

@@ -6,6 +6,8 @@ import it.hurts.shatterbyte.pinatafiesta.data.action.WeightedAction;
 import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import it.hurts.shatterbyte.pinatafiesta.util.TooltipRenderUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -74,6 +76,11 @@ public record PinataDropData(
 
     @Override
     public void addToTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter) {
+        if (!Minecraft.getInstance().hasShiftDown()) {
+            consumer.accept(Component.translatable("item.pinatafiesta.pinata_spawner.tooltip.hold_shift").withStyle(ChatFormatting.GRAY));
+            return;
+        }
+
         PinataDropData.appendActionSection(
                 consumer,
                 "Spawn Actions",
