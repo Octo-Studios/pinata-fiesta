@@ -47,40 +47,38 @@ public class PinataSpawnerItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (!(level instanceof ServerLevel serverLevel))
+    public InteractionResult useOn(UseOnContext context) {
+        if (!(context.getLevel() instanceof ServerLevel serverLevel)) {
             return InteractionResult.SUCCESS;
+        }
 
-        Vec3 look = player.getLookAngle();
-        Vec3 spawnPos = player.position().add(look).add(0F, player.getBbHeight() / 3F, 0F);
-        BlockPos spawnBlockPos = BlockPos.containing(spawnPos);
+        Player player = context.getPlayer();
 
-        PinataEntity pinata = ModContent.pinataEntity().create(serverLevel, null, spawnBlockPos, EntitySpawnReason.SPAWN_ITEM_USE, false, false);
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
 
-        if (pinata == null)
+        ItemStack stack = context.getItemInHand();
+        BlockPos spawnPos = context.getClickedPos().relative(context.getClickedFace());
+
+        PinataEntity pinata = ModContent.pinataEntity().create(serverLevel, null, spawnPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+
+        if (pinata == null) {
             return InteractionResult.FAIL;
+        }
 
         List<Identifier> skins = stack.get(ModComponents.SKINS_COMPONENT_TYPE);
         Identifier skinId = skins.get(player.getRandom().nextInt(skins.size()));
         ModPinataSkins.Skin skin = ModPinataSkins.getSkin(skinId);
 
-
-        pinata.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
-        pinata.setDeltaMovement(look.scale(0.35D));
-        pinata.setYRot(player.getYRot());
         pinata.setSkin(skin);
         pinata.setDropData(stack.get(ModComponents.DROP_DATA_COMPONENT_TYPE));
         pinata.setHitsLeft(stack.get(ModComponents.PINATA_HITS_COMPONENT_TYPE));
-        pinata.setXRot(0F);
 
         player.level().addFreshEntity(pinata);
         pinata.getDropData().executeSpawnActions(serverLevel, pinata, player);
-        serverLevel.addFreshEntity(pinata);
 
         serverLevel.playSound(null, pinata.getX(), pinata.getY(), pinata.getZ(), ModContent.pinataSpawnSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
-        serverLevel.sendParticles(skin.getPaperParticle(), pinata.getX(), pinata.getY(0.65D), pinata.getZ(), 24, 0.2D, 0.2D, 0.2D, 0.08D);
 
         if (!player.getAbilities().instabuild) {
             stack.shrink(1);
