@@ -8,7 +8,6 @@ public class PinataRenderState extends LivingEntityRenderState {
     public float hitZOffset;
     public float hitXRotation;
     public float hitZRotation;
-    public float hitYScale = 1F;
-    public float spawnAlpha = 1F;
+    public float hitYScale = 1.0F;
     public Identifier texture;
 }
