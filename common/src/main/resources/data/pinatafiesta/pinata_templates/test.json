@@ -8,6 +8,16 @@
       {
         "type": "pinatafiesta:run_command",
         "command": "say A Wild Piñata appears!"
+      },
+      {
+        "type": "pinatafiesta:run_command",
+        "execute_as": "pinata",
+        "command": "say yo twin that's me lowk"
+      },
+      {
+        "type": "pinatafiesta:run_command",
+        "execute_as": "server",
+        "command": "say i am too in this episode"
       }
     ],
     "hit_actions": [
@@ -18,8 +28,8 @@
             "weight": 10,
             "action": {
               "type": "pinatafiesta:drop_item",
+              "max": 8,
               "item": {
-                "count": 1,
                 "id": "minecraft:diamond"
               }
             }
@@ -38,8 +48,9 @@
             "weight": 1,
             "action": {
               "type": "pinatafiesta:drop_item",
+              "min": 2,
+              "max": 3,
               "item": {
-                "count": 1,
                 "id": "minecraft:nether_star"
               }
             }
@@ -57,7 +68,7 @@
               "actions": [
                 {
                   "type": "pinatafiesta:drop_experience",
-                  "points": 10
+                  "min": 10
                 },
                 {
                   "type": "pinatafiesta:run_command",
@@ -76,7 +87,8 @@
       },
       {
         "type": "pinatafiesta:drop_experience",
-        "points": 25
+        "min": 10,
+        "max": 25
       }
     ]
   }

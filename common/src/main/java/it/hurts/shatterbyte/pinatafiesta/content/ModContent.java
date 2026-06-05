@@ -52,7 +52,7 @@ public final class ModContent {
         pinataEntity = registrar.registerEntity(
                 PINATA_ID,
                 () -> EntityType.Builder.of(PinataEntity::new, MobCategory.MISC)
-                        .sized(0.9F, 1.15F)
+                        .sized(0.9F, 1.75F)
                         .clientTrackingRange(10)
                         .updateInterval(3)
                         .build(PINATA_ENTITY_KEY)

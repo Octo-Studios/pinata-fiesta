@@ -71,6 +71,15 @@ public class PinataEntity extends LivingEntity {
             return false;
         }
 
+        Player player = null;
+        if (source.getEntity() instanceof Player) {
+            player = (Player) source.getDirectEntity();
+        }
+
+        if (this.hurtTime > 0 && player == null) {
+            return false;
+        }
+
         hitsLeft--;
         this.cacheHitDirection(source);
         this.getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
@@ -78,16 +87,16 @@ public class PinataEntity extends LivingEntity {
 
         level.sendParticles(skin.getPaperParticle(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
 
-        Player player = null;
-        if (source.getEntity() instanceof Player) {
-            player = (Player) source.getEntity();
-        }
 
         dropData.executeHitActions(level, this, player);
         if (hitsLeft <= 0) {
             this.breakOpen(level, player);
             return true;
         }
+
+        this.hurtDuration = 10;
+        this.hurtTime = this.hurtDuration;
+        this.invulnerableTime = 20;
 
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataHurtSound(), SoundSource.NEUTRAL, 1.0F, 0.95F + random.nextFloat() * 0.2F);
         return true;
