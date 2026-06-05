@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,12 +25,13 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class PinataEntity extends LivingEntity {
+public class PinataEntity extends LivingEntity implements Leashable {
     private static final EntityDataAccessor<String> DATA_SKIN = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Integer> DATA_HIT_COUNTER = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_X = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> DATA_HIT_DIR_Z = SynchedEntityData.defineId(PinataEntity.class, EntityDataSerializers.FLOAT);
 
+    private LeashData leashData;
     private PinataDropData dropData = PinataDropData.EMPTY;
     private ModPinataSkins.Skin skin = ModPinataSkins.SUNSET;
     private int hitsLeft = 10;
@@ -153,6 +155,7 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
+        this.writeLeashData(output, leashData);
         output.putString("skin", getEntityData().get(DATA_SKIN));
         output.putInt("hits_left", hitsLeft);
         output.store("drop_data", PinataDropData.CODEC, dropData);
@@ -161,6 +164,7 @@ public class PinataEntity extends LivingEntity {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
+        this.readLeashData(input);
 
         String skinId = input.getStringOr("skin", Constants.MOD_ID + ":sunset");
 
@@ -200,5 +204,15 @@ public class PinataEntity extends LivingEntity {
 
         getEntityData().set(DATA_HIT_DIR_X, (float) (x / length));
         getEntityData().set(DATA_HIT_DIR_Z, (float) (z / length));
+    }
+
+    @Override
+    public @org.jspecify.annotations.Nullable LeashData getLeashData() {
+        return this.leashData;
+    }
+
+    @Override
+    public void setLeashData(@org.jspecify.annotations.Nullable LeashData leashData) {
+        this.leashData = leashData;
     }
 }

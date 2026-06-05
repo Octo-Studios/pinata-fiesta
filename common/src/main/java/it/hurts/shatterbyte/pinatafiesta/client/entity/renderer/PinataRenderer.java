@@ -12,11 +12,13 @@ import it.hurts.shatterbyte.pinatafiesta.entity.PinataEntity;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRenderState, PinataModel> {
@@ -28,6 +30,9 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 
 	@Override
 	public void submit(PinataRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+		List<EntityRenderState.LeashState> leashStates = state.leashStates;
+		state.leashStates = null;
+
 		poseStack.pushPose();
 
 		float idlePhase = state.ageInTicks / 24.0F;
@@ -55,6 +60,13 @@ public class PinataRenderer extends LivingEntityRenderer<PinataEntity, PinataRen
 		
 		super.submit(state, poseStack, submitNodeCollector, camera);
 		poseStack.popPose();
+
+		state.leashStates = leashStates;
+		if (state.leashStates != null) {
+			for (EntityRenderState.LeashState ls : state.leashStates) {
+				submitNodeCollector.submitLeash(poseStack, ls);
+			}
+		}
 	}
 
 	@Override
