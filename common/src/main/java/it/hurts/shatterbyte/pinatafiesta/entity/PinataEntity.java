@@ -73,6 +73,11 @@ public class PinataEntity extends LivingEntity implements Leashable {
             return false;
         }
 
+        if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            this.discard();
+            return true;
+        }
+
         Player player = null;
         if (source.getEntity() instanceof Player) {
             player = (Player) source.getDirectEntity();
@@ -87,7 +92,7 @@ public class PinataEntity extends LivingEntity implements Leashable {
         this.getEntityData().set(DATA_HIT_COUNTER, getEntityData().get(DATA_HIT_COUNTER) + 1);
         this.markHurt();
 
-        level.sendParticles(skin.getPaperParticle(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.2D, 0.2D, 0.2D, 0.125D);
+        level.sendParticles(skin.getPaperParticle(), getX(), getY(0.7f), getZ(), 2 + random.nextInt(4), 0.125, 0.125, 0.125, 0.125D);
 
 
         dropData.executeHitActions(level, this, player);
@@ -178,7 +183,7 @@ public class PinataEntity extends LivingEntity implements Leashable {
 
     private void breakOpen(ServerLevel level, @Nullable Player player) {
         level.playSound(null, getX(), getY(), getZ(), ModContent.pinataDeathSound(), SoundSource.NEUTRAL, 1.1F, 0.95F + random.nextFloat() * 0.1F);
-        level.sendParticles(skin.getConfettiParticle(), getX(), getY(0.65D), getZ(), 256, 0.25D, 0.25D, 0.25D, 0.275D);
+        level.sendParticles(skin.getConfettiParticle(), getX(), getY(0.65D), getZ(), 256, 0.125D, 0.125D, 0.125D, 0.275D);
         dropData.executeBreakActions(level, this, player);
         this.discard();
     }
