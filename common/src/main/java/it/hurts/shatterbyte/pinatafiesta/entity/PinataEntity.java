@@ -80,7 +80,7 @@ public class PinataEntity extends LivingEntity implements Leashable {
 
         Player player = null;
         if (source.getEntity() instanceof Player) {
-            player = (Player) source.getDirectEntity();
+            player = (Player) source.getEntity();
         }
 
         if (this.hurtTime > 0 && player == null) {
